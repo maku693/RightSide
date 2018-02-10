@@ -10,10 +10,35 @@ import Cocoa
 
 class ViewController: NSViewController {
 
+    @objc dynamic var directoryEntries = [DirectoryEntry]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // Dummy data
+        directoryEntries = [
+            DirectoryEntry(
+                title: "Node A",
+                image: NSImage(named: .folder),
+                children: []
+            ),
+            DirectoryEntry(
+                title: "Node B",
+                image: NSImage(named: .folder),
+                children: [
+                    DirectoryEntry(
+                        title: "Child A",
+                        image: NSImage(named: .folder),
+                        children: []
+                    ),
+                    DirectoryEntry(
+                        title: "Child A",
+                        image: NSImage(named: .folder),
+                        children: []
+                    ),
+                ]
+            ),
+        ]
     }
 
     override var representedObject: Any? {
