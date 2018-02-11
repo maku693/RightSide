@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class MainViewController: NSViewController {
 
     @objc dynamic var directoryEntries = [DirectoryEntry]()
 
