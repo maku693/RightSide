@@ -716,6 +716,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="showOpenPanel:" target="vc3-xN-c5l" id="pNC-c8-lLJ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -724,7 +727,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <segue destination="XfG-lQ-9wD" kind="show" id="BTL-Nd-DTO"/>
+                        <segue destination="XfG-lQ-9wD" kind="show" identifier="showDirectory" id="BTL-Nd-DTO"/>
                     </connections>
                 </viewController>
                 <customObject id="7Sd-O2-r2t" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

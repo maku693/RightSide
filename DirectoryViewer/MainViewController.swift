@@ -14,8 +14,6 @@ class MainViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        directoryEntries = DirectoryEntry.entries(for: FileManager.default.homeDirectoryForCurrentUser)
     }
 
     override var representedObject: Any? {
