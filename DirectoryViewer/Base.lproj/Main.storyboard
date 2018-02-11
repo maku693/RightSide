@@ -695,12 +695,41 @@
                         </connections>
                     </window>
                     <connections>
-                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
+                        <segue destination="vc3-xN-c5l" kind="relationship" relationship="window.shadowedContentViewController" id="Wyr-Tf-QEc"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
+        </scene>
+        <!--Splash View Controller-->
+        <scene sceneID="y4r-TU-lcI">
+            <objects>
+                <viewController id="vc3-xN-c5l" customClass="SplashViewController" customModule="DirectoryViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="JFQ-wn-tF6">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HVo-TH-wqo">
+                                <rect key="frame" x="183" y="132" width="85" height="32"/>
+                                <buttonCell key="cell" type="push" title="Open..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YaS-3h-yAb">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="HVo-TH-wqo" firstAttribute="centerX" secondItem="JFQ-wn-tF6" secondAttribute="centerX" id="371-uB-Hxb"/>
+                            <constraint firstItem="HVo-TH-wqo" firstAttribute="centerY" secondItem="JFQ-wn-tF6" secondAttribute="centerY" id="vt7-ju-fGs"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <segue destination="XfG-lQ-9wD" kind="show" id="BTL-Nd-DTO"/>
+                    </connections>
+                </viewController>
+                <customObject id="7Sd-O2-r2t" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="75" y="655"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -794,7 +823,7 @@
                     </connections>
                 </treeController>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="75" y="1060"/>
         </scene>
     </scenes>
     <resources>
