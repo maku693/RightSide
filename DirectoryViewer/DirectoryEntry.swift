@@ -10,15 +10,30 @@ import Cocoa
 
 class DirectoryEntry: NSObject {
 
-    @objc dynamic var title: String?
-    @objc dynamic var image: NSImage?
-    @objc dynamic var children: [DirectoryEntry]
+    var url: URL
+    @objc dynamic var title: String
+    @objc dynamic var image: NSImage
+    @objc dynamic var children: [DirectoryEntry] = []
 
-    init(title: String?, image: NSImage?, children: [DirectoryEntry]) {
-        self.title = title
-        self.image = image
-        self.children = children
+    init(url: URL) {
+        self.url = url.absoluteURL
+        self.title = url.lastPathComponent
+        self.image = NSWorkspace.shared.icon(forFile: url.path)
+        self.children = DirectoryEntry.entries(for: url)
+
         super.init()
+    }
+
+}
+
+extension DirectoryEntry {
+
+    static func entries(for url: URL) -> [DirectoryEntry] {
+        guard let entriesPath = try? FileManager.default.contentsOfDirectory(
+            at: url,
+            includingPropertiesForKeys: nil) else { return [] }
+
+        return entriesPath.map { DirectoryEntry(url: $0) }
     }
 
 }

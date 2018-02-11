@@ -15,30 +15,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Dummy data
-        directoryEntries = [
-            DirectoryEntry(
-                title: "Node A",
-                image: NSImage(named: .folder),
-                children: []
-            ),
-            DirectoryEntry(
-                title: "Node B",
-                image: NSImage(named: .folder),
-                children: [
-                    DirectoryEntry(
-                        title: "Child A",
-                        image: NSImage(named: .folder),
-                        children: []
-                    ),
-                    DirectoryEntry(
-                        title: "Child A",
-                        image: NSImage(named: .folder),
-                        children: []
-                    ),
-                ]
-            ),
-        ]
+        directoryEntries = DirectoryEntry.entries(for: FileManager.default.homeDirectoryForCurrentUser)
     }
 
     override var representedObject: Any? {
