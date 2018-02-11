@@ -21,6 +21,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 
+    func applicationDidBecomeActive(_ notification: Notification) {
+        showOpenPanelIfNecessay()
+    }
+
+    func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool {
+        return false
+    }
+
+    func showOpenPanelIfNecessay() {
+        if DocumentController.shared.documents.count == 0 {
+            DocumentController.shared.openDocument(self)
+        }
+    }
+
 
 }
 

@@ -8,9 +8,7 @@
 
 import Cocoa
 
-class MainViewController: NSViewController {
-
-    @objc dynamic var directoryEntries = [DirectoryEntry]()
+class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

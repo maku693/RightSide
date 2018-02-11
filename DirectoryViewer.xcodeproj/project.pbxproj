@@ -7,19 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		433D269620304F0D00C870FB /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433D269520304F0D00C870FB /* SplashViewController.swift */; };
+		433D26B820308A3A00C870FB /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433D26B720308A3A00C870FB /* Document.swift */; };
+		433D26BC20308CC200C870FB /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433D26BB20308CC200C870FB /* DocumentController.swift */; };
 		4381FB14202DE6A000C8703A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4381FB13202DE6A000C8703A /* AppDelegate.swift */; };
-		4381FB16202DE6A000C8703A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4381FB15202DE6A000C8703A /* MainViewController.swift */; };
+		4381FB16202DE6A000C8703A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4381FB15202DE6A000C8703A /* ViewController.swift */; };
 		4381FB18202DE6A000C8703A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4381FB17202DE6A000C8703A /* Assets.xcassets */; };
 		4381FB1B202DE6A000C8703A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4381FB19202DE6A000C8703A /* Main.storyboard */; };
 		4381FB24202DF90C00C8703A /* DirectoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4381FB23202DF90C00C8703A /* DirectoryEntry.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		433D269520304F0D00C870FB /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		433D26B720308A3A00C870FB /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		433D26BB20308CC200C870FB /* DocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
 		4381FB10202DE6A000C8703A /* DirectoryViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DirectoryViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4381FB13202DE6A000C8703A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4381FB15202DE6A000C8703A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		4381FB15202DE6A000C8703A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4381FB17202DE6A000C8703A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4381FB1A202DE6A000C8703A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4381FB1C202DE6A000C8703A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -58,8 +60,9 @@
 			isa = PBXGroup;
 			children = (
 				4381FB13202DE6A000C8703A /* AppDelegate.swift */,
-				433D269520304F0D00C870FB /* SplashViewController.swift */,
-				4381FB15202DE6A000C8703A /* MainViewController.swift */,
+				4381FB15202DE6A000C8703A /* ViewController.swift */,
+				433D26BB20308CC200C870FB /* DocumentController.swift */,
+				433D26B720308A3A00C870FB /* Document.swift */,
 				4381FB23202DF90C00C8703A /* DirectoryEntry.swift */,
 				4381FB17202DE6A000C8703A /* Assets.xcassets */,
 				4381FB19202DE6A000C8703A /* Main.storyboard */,
@@ -140,10 +143,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				433D269620304F0D00C870FB /* SplashViewController.swift in Sources */,
+				433D26BC20308CC200C870FB /* DocumentController.swift in Sources */,
 				4381FB24202DF90C00C8703A /* DirectoryEntry.swift in Sources */,
-				4381FB16202DE6A000C8703A /* MainViewController.swift in Sources */,
+				4381FB16202DE6A000C8703A /* ViewController.swift in Sources */,
 				4381FB14202DE6A000C8703A /* AppDelegate.swift in Sources */,
+				433D26B820308A3A00C870FB /* Document.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
