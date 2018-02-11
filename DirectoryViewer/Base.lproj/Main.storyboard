@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -695,44 +695,12 @@
                         </connections>
                     </window>
                     <connections>
-                        <segue destination="vc3-xN-c5l" kind="relationship" relationship="window.shadowedContentViewController" id="Wyr-Tf-QEc"/>
+                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="MHh-A3-f0T"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
-        </scene>
-        <!--Splash View Controller-->
-        <scene sceneID="y4r-TU-lcI">
-            <objects>
-                <viewController id="vc3-xN-c5l" customClass="SplashViewController" customModule="DirectoryViewer" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="JFQ-wn-tF6">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HVo-TH-wqo">
-                                <rect key="frame" x="183" y="132" width="85" height="32"/>
-                                <buttonCell key="cell" type="push" title="Open..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YaS-3h-yAb">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="showOpenPanel:" target="vc3-xN-c5l" id="pNC-c8-lLJ"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="HVo-TH-wqo" firstAttribute="centerX" secondItem="JFQ-wn-tF6" secondAttribute="centerX" id="371-uB-Hxb"/>
-                            <constraint firstItem="HVo-TH-wqo" firstAttribute="centerY" secondItem="JFQ-wn-tF6" secondAttribute="centerY" id="vt7-ju-fGs"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <segue destination="XfG-lQ-9wD" kind="show" identifier="showDirectory" id="BTL-Nd-DTO"/>
-                    </connections>
-                </viewController>
-                <customObject id="7Sd-O2-r2t" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="75" y="655"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -826,7 +794,7 @@
                     </connections>
                 </treeController>
             </objects>
-            <point key="canvasLocation" x="75" y="1060"/>
+            <point key="canvasLocation" x="75" y="655"/>
         </scene>
     </scenes>
     <resources>
