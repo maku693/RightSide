@@ -816,7 +816,7 @@
                     </scrollView>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <treeController objectClassName="DirectoryEntry" childrenKeyPath="children" id="hSH-Pn-4LR">
+                <treeController objectClassName="DirectoryEntry" childrenKeyPath="children" leafKeyPath="isFile" id="hSH-Pn-4LR">
                     <declaredKeys>
                         <string>title</string>
                         <string>image</string>
