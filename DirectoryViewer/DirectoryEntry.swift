@@ -14,7 +14,7 @@ class DirectoryEntry: NSObject {
     @objc dynamic var title: String
     @objc dynamic var image: NSImage
     @objc dynamic var isFile: Bool
-    @objc dynamic lazy var children: [DirectoryEntry] = isFile ? [] : DirectoryEntry.entries(for: url)
+    @objc dynamic lazy var children: [DirectoryEntry] = isFile ? [] : DirectoryEntry.entriesFor(url)
 
     init(url: URL) {
         self.url = url.absoluteURL
@@ -34,7 +34,7 @@ class DirectoryEntry: NSObject {
 
 extension DirectoryEntry {
 
-    static func entries(for url: URL) -> [DirectoryEntry] {
+    static func entriesFor(_ url: URL) -> [DirectoryEntry] {
         guard let entryURLs = try? FileManager.default.contentsOfDirectory(
             at: url,
             includingPropertiesForKeys: [.isDirectoryKey, .isPackageKey],
