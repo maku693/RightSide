@@ -791,7 +791,7 @@
                         <string>image</string>
                     </declaredKeys>
                     <connections>
-                        <binding destination="XfG-lQ-9wD" name="contentArray" keyPath="representedObject" id="Tx7-QZ-c6b"/>
+                        <binding destination="XfG-lQ-9wD" name="contentArray" keyPath="representedObject.directoryEntries" id="4Ye-uq-Kqp"/>
                     </connections>
                 </treeController>
             </objects>

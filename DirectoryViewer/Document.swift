@@ -10,18 +10,34 @@ import Cocoa
 
 class Document: NSDocument {
 
-    var directoryEntries = [DirectoryEntry]()
+    @objc dynamic var directoryEntries = [DirectoryEntry]()
 
     override func read(from url: URL, ofType typeName: String) throws {
-        directoryEntries.append(DirectoryEntry(url: url))
+        let directoryEntry = DirectoryEntry(url: url)
+        directoryEntry.delegate = self
+        directoryEntries.append(directoryEntry)
     }
 
     override func makeWindowControllers() {
+        guard self.windowControllers.isEmpty else { return }
+
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
         let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Window Controller")) as! NSWindowController
         addWindowController(windowController)
-        guard let mainViewController = windowController.contentViewController as? ViewController else { return }
-        mainViewController.representedObject = directoryEntries
+        windowController.contentViewController?.representedObject = windowController.document
+    }
+
+}
+
+extension Document: DirectoryEntryDelegate {
+
+    func directoryEntryWillDelete(_ directoryEntry: DirectoryEntry) {
+        if let i = directoryEntries.index(of: directoryEntry) {
+            directoryEntries.remove(at: i)
+        }
+        if directoryEntries.isEmpty {
+            close()
+        }
     }
 
 }
