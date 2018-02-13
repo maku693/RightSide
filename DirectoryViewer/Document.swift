@@ -18,6 +18,12 @@ class Document: NSDocument {
         let directoryEntry = DirectoryEntry(url: url)
         directoryEntry.delegate = self
         directoryEntries.append(directoryEntry)
+
+        if directoryEntries.count == 1 {
+            displayName = directoryEntries.first!.title
+        } else {
+            displayName = String(format: NSLocalizedString("%d items", comment: ""), directoryEntries.count)
+        }
     }
 
     override func makeWindowControllers() {
