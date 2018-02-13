@@ -15,15 +15,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        showOpenPanelIfNecessay()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
-    }
-
-    func applicationDidBecomeActive(_ notification: Notification) {
-        showOpenPanelIfNecessay()
     }
 
     func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool {
