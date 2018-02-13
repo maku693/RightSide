@@ -769,6 +769,7 @@
                                     </tableColumns>
                                     <connections>
                                         <binding destination="hSH-Pn-4LR" name="content" keyPath="arrangedObjects" id="p0j-zS-oAp"/>
+                                        <binding destination="hSH-Pn-4LR" name="selectionIndexPaths" keyPath="selectionIndexPaths" previousBinding="p0j-zS-oAp" id="gu2-sg-AgN"/>
                                     </connections>
                                 </outlineView>
                             </subviews>
@@ -783,6 +784,9 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
+                    <connections>
+                        <outlet property="outlineView" destination="a1D-vH-0vr" id="TXg-QV-mis"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <treeController objectClassName="DirectoryEntry" childrenKeyPath="children" leafKeyPath="isFile" id="hSH-Pn-4LR">
@@ -791,7 +795,8 @@
                         <string>image</string>
                     </declaredKeys>
                     <connections>
-                        <binding destination="XfG-lQ-9wD" name="contentArray" keyPath="representedObject.directoryEntries" id="4Ye-uq-Kqp"/>
+                        <binding destination="XfG-lQ-9wD" name="contentArray" keyPath="representedObject.directoryEntries" id="OyQ-9i-QF9"/>
+                        <binding destination="XfG-lQ-9wD" name="selectionIndexPaths" keyPath="representedObject.selectionIndexPaths" id="9Cl-VX-AJh"/>
                     </connections>
                 </treeController>
             </objects>

@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Quartz
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -35,6 +36,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
+    func togglePreviewPanel() {
+        if QLPreviewPanel.sharedPreviewPanelExists() && QLPreviewPanel.shared().isVisible {
+            QLPreviewPanel.shared().orderOut(nil)
+        } else {
+            QLPreviewPanel.shared().makeKeyAndOrderFront(nil)
+        }
+    }
 
 }
 

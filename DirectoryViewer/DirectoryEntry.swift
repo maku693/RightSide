@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Quartz
 
 class DirectoryEntry: NSObject {
 
@@ -37,6 +38,14 @@ class DirectoryEntry: NSObject {
     deinit {
         NSFileCoordinator.removeFilePresenter(self)
     }
+    
+    func entryAtIndexPath(_ indexPath: IndexPath) -> DirectoryEntry {
+        if indexPath.isEmpty {
+            return self
+        }
+        let child = children[indexPath.first!]
+        return child.entryAtIndexPath(indexPath.dropFirst())
+    }
 
     static func entriesFor(_ url: URL) -> [DirectoryEntry] {
         guard let entryURLs = try? FileManager.default.contentsOfDirectory(
@@ -63,6 +72,13 @@ extension DirectoryEntry: NSFilePresenter {
         delegate?.directoryEntryWillDelete(self)
         completionHandler(nil)
     }
+
+}
+
+extension DirectoryEntry: QLPreviewItem {
+
+    var previewItemURL: URL! { return url }
+    var previewItemTitle: String { return title }
 
 }
 

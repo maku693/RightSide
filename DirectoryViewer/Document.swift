@@ -7,10 +7,12 @@
 //
 
 import Cocoa
+import Quartz
 
 class Document: NSDocument {
 
     @objc dynamic var directoryEntries = [DirectoryEntry]()
+    @objc dynamic var selectionIndexPaths = [IndexPath]()
 
     override func read(from url: URL, ofType typeName: String) throws {
         let directoryEntry = DirectoryEntry(url: url)
@@ -24,7 +26,7 @@ class Document: NSDocument {
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
         let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Window Controller")) as! NSWindowController
         addWindowController(windowController)
-        windowController.contentViewController?.representedObject = windowController.document
+        windowController.contentViewController?.representedObject = self
     }
 
 }
@@ -38,6 +40,20 @@ extension Document: DirectoryEntryDelegate {
         if directoryEntries.isEmpty {
             close()
         }
+    }
+
+}
+
+extension Document: QLPreviewPanelDataSource {
+
+    func numberOfPreviewItems(in panel: QLPreviewPanel!) -> Int {
+        return selectionIndexPaths.count
+    }
+
+    func previewPanel(_ panel: QLPreviewPanel!, previewItemAt index: Int) -> QLPreviewItem! {
+        let indexPath = selectionIndexPaths[index]
+        let currentIndex = indexPath.first!
+        return directoryEntries[currentIndex].entryAtIndexPath(indexPath.dropFirst())
     }
 
 }
