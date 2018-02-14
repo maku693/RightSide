@@ -53,7 +53,9 @@ class DirectoryEntry: NSObject {
             includingPropertiesForKeys: [.isDirectoryKey, .isPackageKey],
             options: [.skipsHiddenFiles]) else { return [] }
 
-        return entryURLs.map { DirectoryEntry(url: $0) }
+        return entryURLs
+            .sorted { $0.absoluteString.removingPercentEncoding! < $1.absoluteString.removingPercentEncoding! }
+            .map { DirectoryEntry(url: $0) }
     }
 
 }
