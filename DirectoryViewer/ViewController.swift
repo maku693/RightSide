@@ -13,6 +13,15 @@ class ViewController: NSViewController {
 
     @IBOutlet weak var outlineView: NSOutlineView!
 
+    override func keyDown(with event: NSEvent) {
+        guard event.charactersIgnoringModifiers == " " else {
+            nextResponder?.keyDown(with: event)
+            return
+        }
+        let appDelegate = NSApp.delegate as! AppDelegate
+        appDelegate.togglePreviewPanel()
+    }
+
     override func acceptsPreviewPanelControl(_ panel: QLPreviewPanel!) -> Bool {
         return true
     }
@@ -24,15 +33,6 @@ class ViewController: NSViewController {
 
     override func endPreviewPanelControl(_ panel: QLPreviewPanel!) {
         // Do Nothing
-    }
-
-    override func keyDown(with event: NSEvent) {
-        guard event.charactersIgnoringModifiers == " " else {
-            nextResponder?.keyDown(with: event)
-            return
-        }
-        let appDelegate = NSApp.delegate as! AppDelegate
-        appDelegate.togglePreviewPanel()
     }
 
 }
