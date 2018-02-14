@@ -13,16 +13,6 @@ class ViewController: NSViewController {
 
     @IBOutlet weak var outlineView: NSOutlineView!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
-    }
-
     override func acceptsPreviewPanelControl(_ panel: QLPreviewPanel!) -> Bool {
         return true
     }
