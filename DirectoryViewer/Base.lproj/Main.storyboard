@@ -783,12 +783,39 @@
                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
+                        <connections>
+                            <outlet property="menu" destination="aIk-lA-dfR" id="nr4-SS-iBP"/>
+                        </connections>
                     </scrollView>
                     <connections>
                         <outlet property="outlineView" destination="a1D-vH-0vr" id="TXg-QV-mis"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <menu id="aIk-lA-dfR">
+                    <items>
+                        <menuItem title="Show in Finder" id="nGM-ym-Otj">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <binding destination="XfG-lQ-9wD" name="target" keyPath="representedObject" id="iRs-M8-Xqi">
+                                    <dictionary key="options">
+                                        <string key="NSSelectorName">showSelectedEntriesInFinder</string>
+                                    </dictionary>
+                                </binding>
+                            </connections>
+                        </menuItem>
+                        <menuItem title="Open with External Editor" id="A4F-yO-dlJ">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <binding destination="XfG-lQ-9wD" name="target" keyPath="representedObject" id="GCt-rc-Efu">
+                                    <dictionary key="options">
+                                        <string key="NSSelectorName">openSelectedEntriesInExternalEditor</string>
+                                    </dictionary>
+                                </binding>
+                            </connections>
+                        </menuItem>
+                    </items>
+                </menu>
                 <treeController objectClassName="DirectoryEntry" childrenKeyPath="children" leafKeyPath="isFile" id="hSH-Pn-4LR">
                     <declaredKeys>
                         <string>title</string>

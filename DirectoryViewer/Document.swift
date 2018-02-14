@@ -14,6 +14,13 @@ class Document: NSDocument {
     @objc dynamic var directoryEntries = [DirectoryEntry]()
     @objc dynamic var selectionIndexPaths = [IndexPath]()
 
+    var selectedEntries: [DirectoryEntry] {
+        return selectionIndexPaths.map { indexPath in
+            let currentIndex = indexPath.first!
+            return directoryEntries[currentIndex].entryAtIndexPath(indexPath.dropFirst())
+        }
+    }
+
     override func read(from url: URL, ofType typeName: String) throws {
         let directoryEntry = DirectoryEntry(url: url)
         directoryEntry.delegate = self
@@ -33,6 +40,17 @@ class Document: NSDocument {
         let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Window Controller")) as! NSWindowController
         addWindowController(windowController)
         windowController.contentViewController?.representedObject = self
+    }
+
+    @objc func showSelectedEntriesInFinder() {
+        let urls = selectedEntries.map { $0.url }
+        NSWorkspace.shared.activateFileViewerSelecting(urls)
+    }
+
+    @objc func openSelectedEntriesInExternalEditor() {
+        for entry in selectedEntries {
+            NSWorkspace.shared.openFile(entry.url.absoluteString)
+        }
     }
 
 }
@@ -57,9 +75,7 @@ extension Document: QLPreviewPanelDataSource {
     }
 
     func previewPanel(_ panel: QLPreviewPanel!, previewItemAt index: Int) -> QLPreviewItem! {
-        let indexPath = selectionIndexPaths[index]
-        let currentIndex = indexPath.first!
-        return directoryEntries[currentIndex].entryAtIndexPath(indexPath.dropFirst())
+        return selectedEntries[index]
     }
 
 }
