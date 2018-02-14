@@ -27,7 +27,10 @@ class ViewController: NSViewController {
     }
 
     override func keyDown(with event: NSEvent) {
-        guard event.charactersIgnoringModifiers == " " else { return }
+        guard event.charactersIgnoringModifiers == " " else {
+            nextResponder?.keyDown(with: event)
+            return
+        }
         let appDelegate = NSApp.delegate as! AppDelegate
         appDelegate.togglePreviewPanel()
     }
