@@ -36,12 +36,13 @@ class ViewController: NSViewController {
     }
 
     override func keyDown(with event: NSEvent) {
-        guard event.charactersIgnoringModifiers == " " else {
-            nextResponder?.keyDown(with: event)
-            return
+        if event.charactersIgnoringModifiers == " " {
+            if let appDelegate = NSApp.delegate as? AppDelegate {
+                appDelegate.togglePreviewPanel()
+                return
+            }
         }
-        let appDelegate = NSApp.delegate as! AppDelegate
-        appDelegate.togglePreviewPanel()
+        nextResponder?.keyDown(with: event)
     }
 
     @IBAction func showActiveEntriesInFinder(_ sender: Any) {
@@ -101,19 +102,20 @@ extension ViewController: QLPreviewPanelDataSource {
 extension ViewController: QLPreviewPanelDelegate {
 
     func previewPanel(_ panel: QLPreviewPanel!, handle event: NSEvent!) -> Bool {
-        guard event.type == .keyDown else { return false }
+        if event.type != .keyDown { return false }
         keyDown(with: event)
         return true
     }
 
     func previewPanel(_ panel: QLPreviewPanel!, sourceFrameOnScreenFor item: QLPreviewItem!) -> NSRect {
-        let cell = outlineView.view(atColumn: outlineView.selectedColumn, row: outlineView.selectedRow, makeIfNecessary: true) as! NSTableCellView
-        let rectOnWindow = cell.convert(cell.imageView!.frame, to: nil)
+        guard let cell = outlineView.view(atColumn: outlineView.selectedColumn, row: outlineView.selectedRow, makeIfNecessary: true) as? NSTableCellView else { return .zero }
+        let rectOnWindow = cell.convert(cell.imageView?.frame ?? .zero, to: nil)
         return cell.window!.convertToScreen(rectOnWindow)
     }
 
     func previewPanel(_ panel: QLPreviewPanel!, transitionImageFor item: QLPreviewItem!, contentRect: UnsafeMutablePointer<NSRect>!) -> Any! {
-        return (item as! DirectoryEntry).image
+        guard let entry = item as? DirectoryEntry else { return nil }
+        return entry.image
     }
 
 }

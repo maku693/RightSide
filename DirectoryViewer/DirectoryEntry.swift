@@ -26,8 +26,9 @@ class DirectoryEntry: NSObject {
         self.isFile = true
 
         if let resourceValues = try? url.resourceValues(forKeys: [.isDirectoryKey, .isPackageKey]),
-            resourceValues.isDirectory! && !resourceValues.isPackage! {
-            self.isFile = false
+            let isDirectory = resourceValues.isDirectory,
+            let isPackage = resourceValues.isPackage {
+            self.isFile = !isDirectory || isPackage
         }
 
         super.init()
@@ -54,7 +55,13 @@ class DirectoryEntry: NSObject {
             options: [.skipsHiddenFiles]) else { return [] }
 
         return entryURLs
-            .sorted { $0.absoluteString.removingPercentEncoding! < $1.absoluteString.removingPercentEncoding! }
+            .sorted {
+                if let a: String = $0.absoluteString.removingPercentEncoding, let b = $1.absoluteString.removingPercentEncoding {
+                    return a.localizedCaseInsensitiveCompare(b) == .orderedAscending
+                } else {
+                    return true
+                }
+            }
             .map { DirectoryEntry(url: $0) }
     }
 
