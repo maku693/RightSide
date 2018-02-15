@@ -771,6 +771,7 @@
                                         <binding destination="hSH-Pn-4LR" name="content" keyPath="arrangedObjects" id="p0j-zS-oAp"/>
                                         <binding destination="hSH-Pn-4LR" name="selectionIndexPaths" keyPath="selectionIndexPaths" previousBinding="p0j-zS-oAp" id="gu2-sg-AgN"/>
                                         <outlet property="dataSource" destination="XfG-lQ-9wD" id="OXy-fo-wJe"/>
+                                        <outlet property="menu" destination="aIk-lA-dfR" id="gML-3I-kHU"/>
                                     </connections>
                                 </outlineView>
                             </subviews>
@@ -784,9 +785,6 @@
                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <connections>
-                            <outlet property="menu" destination="aIk-lA-dfR" id="nr4-SS-iBP"/>
-                        </connections>
                     </scrollView>
                     <connections>
                         <outlet property="outlineView" destination="a1D-vH-0vr" id="TXg-QV-mis"/>
@@ -798,21 +796,21 @@
                         <menuItem title="Show in Finder" id="nGM-ym-Otj">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <binding destination="XfG-lQ-9wD" name="target" keyPath="representedObject" id="iRs-M8-Xqi">
-                                    <dictionary key="options">
-                                        <string key="NSSelectorName">showSelectedEntriesInFinder</string>
-                                    </dictionary>
-                                </binding>
+                                <action selector="showActiveEntriesInFinder:" target="XfG-lQ-9wD" id="aS1-RZ-iz7"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Open with External Editor" id="A4F-yO-dlJ">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <binding destination="XfG-lQ-9wD" name="target" keyPath="representedObject" id="GCt-rc-Efu">
-                                    <dictionary key="options">
-                                        <string key="NSSelectorName">openSelectedEntriesInExternalEditor</string>
-                                    </dictionary>
-                                </binding>
+                                <action selector="openActiveEntriesWithExternalEditor:" target="XfG-lQ-9wD" id="sNr-0c-VLM"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="Dbj-nD-SEf"/>
+                        <menuItem title="Remove Reference" id="GWn-K1-0Ts">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="removeActiveEntriesFromDocument:" target="XfG-lQ-9wD" id="mCK-uf-dWb"/>
+                                <binding destination="XfG-lQ-9wD" name="enabled" keyPath="shouldEnableRemoveReference" id="HzP-u7-2cG"/>
                             </connections>
                         </menuItem>
                     </items>
@@ -823,8 +821,8 @@
                         <string>image</string>
                     </declaredKeys>
                     <connections>
-                        <binding destination="XfG-lQ-9wD" name="contentArray" keyPath="representedObject.directoryEntries" id="OyQ-9i-QF9"/>
-                        <binding destination="XfG-lQ-9wD" name="selectionIndexPaths" keyPath="representedObject.selectionIndexPaths" id="9Cl-VX-AJh"/>
+                        <binding destination="XfG-lQ-9wD" name="contentArray" keyPath="representedObject.directoryEntries" id="iEk-Pp-ya2"/>
+                        <binding destination="XfG-lQ-9wD" name="selectionIndexPaths" keyPath="selectionIndexPaths" id="WHT-af-Zr9"/>
                     </connections>
                 </treeController>
             </objects>

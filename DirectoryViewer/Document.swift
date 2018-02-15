@@ -12,14 +12,6 @@ import Quartz
 class Document: NSDocument {
 
     @objc dynamic var directoryEntries = [DirectoryEntry]()
-    @objc dynamic var selectionIndexPaths = [IndexPath]()
-
-    var selectedEntries: [DirectoryEntry] {
-        return selectionIndexPaths.map { indexPath in
-            let currentIndex = indexPath.first!
-            return directoryEntries[currentIndex].entryAtIndexPath(indexPath.dropFirst())
-        }
-    }
 
     override func read(from url: URL, ofType typeName: String) throws {
         let directoryEntry = DirectoryEntry(url: url)
@@ -42,23 +34,27 @@ class Document: NSDocument {
         windowController.contentViewController?.representedObject = self
     }
 
-    @objc func showSelectedEntriesInFinder() {
-        let urls = selectedEntries.map { $0.url }
+    func entriesForIndexPaths(_ indexPaths: [IndexPath]) -> [DirectoryEntry] {
+        return indexPaths.map { indexPath in
+            let currentIndex = indexPath.first!
+            return directoryEntries[currentIndex].entryAtIndexPath(indexPath.dropFirst())
+        }
+    }
+
+    func showEntriesForIndexPathsInFinder(_ indexPaths: [IndexPath]) {
+        let urls = entriesForIndexPaths(indexPaths).map { $0.url }
         NSWorkspace.shared.activateFileViewerSelecting(urls)
     }
 
-    @objc func openSelectedEntriesInExternalEditor() {
-        for entry in selectedEntries {
+    func openEntriesForIndexPathsWithExternalEditor(_ indexPaths: [IndexPath]) {
+        for entry in entriesForIndexPaths(indexPaths) {
             NSWorkspace.shared.openFile(entry.url.absoluteString)
         }
     }
 
-}
-
-extension Document: DirectoryEntryDelegate {
-
-    func directoryEntryWillDelete(_ directoryEntry: DirectoryEntry) {
-        if let i = directoryEntries.index(of: directoryEntry) {
+    func removeRootEntriesForIndexSet(_ indexSet: IndexSet) {
+        // IndexSet should be visited backwards to correctly remove items in an array
+        for i in indexSet.reversed() {
             directoryEntries.remove(at: i)
         }
         if directoryEntries.isEmpty {
@@ -68,14 +64,11 @@ extension Document: DirectoryEntryDelegate {
 
 }
 
-extension Document: QLPreviewPanelDataSource {
+extension Document: DirectoryEntryDelegate {
 
-    func numberOfPreviewItems(in panel: QLPreviewPanel!) -> Int {
-        return selectionIndexPaths.count
-    }
-
-    func previewPanel(_ panel: QLPreviewPanel!, previewItemAt index: Int) -> QLPreviewItem! {
-        return selectedEntries[index]
+    func directoryEntryWillDelete(_ directoryEntry: DirectoryEntry) {
+        guard let i = directoryEntries.index(of: directoryEntry) else { return }
+        removeRootEntriesForIndexSet([i])
     }
 
 }

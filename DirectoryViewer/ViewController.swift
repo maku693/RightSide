@@ -12,6 +12,23 @@ import Quartz
 class ViewController: NSViewController {
 
     @IBOutlet weak var outlineView: NSOutlineView!
+    @objc dynamic var selectionIndexPaths = [IndexPath]()
+
+    @objc dynamic var activeIndexPaths: [IndexPath] {
+        if !isViewLoaded || outlineView.selectedRowIndexes.contains(outlineView.clickedRow) {
+            return selectionIndexPaths
+        }
+        guard let item = outlineView.item(atRow: outlineView.clickedRow) as? NSTreeNode else {
+            return selectionIndexPaths
+        }
+        return [item.indexPath]
+    }
+
+    @objc dynamic var shouldEnableRemoveReference: Bool {
+        return activeIndexPaths.reduce(true) { $0 && $1.count == 1 }
+    }
+
+    var document: Document? { return representedObject as? Document }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,13 +44,26 @@ class ViewController: NSViewController {
         appDelegate.togglePreviewPanel()
     }
 
+    @IBAction func showActiveEntriesInFinder(_ sender: Any) {
+        document?.showEntriesForIndexPathsInFinder(activeIndexPaths)
+    }
+
+    @IBAction func openActiveEntriesWithExternalEditor(_ sender: Any) {
+        document?.openEntriesForIndexPathsWithExternalEditor(activeIndexPaths)
+    }
+
+    @IBAction func removeActiveEntriesFromDocument(_ sender: Any) {
+        let rootIndices = activeIndexPaths.flatMap { $0[0] }
+        document?.removeRootEntriesForIndexSet(IndexSet(rootIndices))
+    }
+
     override func acceptsPreviewPanelControl(_ panel: QLPreviewPanel!) -> Bool {
         return true
     }
 
     override func beginPreviewPanelControl(_ panel: QLPreviewPanel!) {
         panel.delegate = self
-        panel.dataSource = representedObject as! Document
+        panel.dataSource = self
     }
 
     override func endPreviewPanelControl(_ panel: QLPreviewPanel!) {
@@ -52,6 +82,18 @@ extension ViewController: NSOutlineViewDataSource {
             .map { $0 as NSURL }
         pasteboard.writeObjects(urls)
         return true
+    }
+
+}
+
+extension ViewController: QLPreviewPanelDataSource {
+
+    func numberOfPreviewItems(in panel: QLPreviewPanel!) -> Int {
+        return activeIndexPaths.count
+    }
+
+    func previewPanel(_ panel: QLPreviewPanel!, previewItemAt index: Int) -> QLPreviewItem! {
+        return document?.entriesForIndexPaths(activeIndexPaths)[index]
     }
 
 }
