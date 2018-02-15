@@ -13,6 +13,11 @@ class ViewController: NSViewController {
 
     @IBOutlet weak var outlineView: NSOutlineView!
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        outlineView.setDraggingSourceOperationMask(.link, forLocal: false)
+    }
+
     override func keyDown(with event: NSEvent) {
         guard event.charactersIgnoringModifiers == " " else {
             nextResponder?.keyDown(with: event)
@@ -33,6 +38,20 @@ class ViewController: NSViewController {
 
     override func endPreviewPanelControl(_ panel: QLPreviewPanel!) {
         // Do Nothing
+    }
+
+}
+
+extension ViewController: NSOutlineViewDataSource {
+
+    func outlineView(_ outlineView: NSOutlineView, writeItems items: [Any], to pasteboard: NSPasteboard) -> Bool {
+        guard let nodes = items as? [NSTreeNode] else { return false }
+        let urls = nodes
+            .map { $0.representedObject as? DirectoryEntry }
+            .flatMap { $0?.url } // Exclude `nil`
+            .map { $0 as NSURL }
+        pasteboard.writeObjects(urls)
+        return true
     }
 
 }

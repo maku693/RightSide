@@ -770,6 +770,7 @@
                                     <connections>
                                         <binding destination="hSH-Pn-4LR" name="content" keyPath="arrangedObjects" id="p0j-zS-oAp"/>
                                         <binding destination="hSH-Pn-4LR" name="selectionIndexPaths" keyPath="selectionIndexPaths" previousBinding="p0j-zS-oAp" id="gu2-sg-AgN"/>
+                                        <outlet property="dataSource" destination="XfG-lQ-9wD" id="OXy-fo-wJe"/>
                                     </connections>
                                 </outlineView>
                             </subviews>
