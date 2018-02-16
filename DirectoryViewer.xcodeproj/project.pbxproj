@@ -14,6 +14,7 @@
 		4381FB18202DE6A000C8703A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4381FB17202DE6A000C8703A /* Assets.xcassets */; };
 		4381FB1B202DE6A000C8703A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4381FB19202DE6A000C8703A /* Main.storyboard */; };
 		4381FB24202DF90C00C8703A /* DirectoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4381FB23202DF90C00C8703A /* DirectoryEntry.swift */; };
+		43DFDAE520373DE4005832C0 /* URL+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DFDAE420373DE4005832C0 /* URL+Comparable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		4381FB1C202DE6A000C8703A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4381FB1D202DE6A000C8703A /* DirectoryViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DirectoryViewer.entitlements; sourceTree = "<group>"; };
 		4381FB23202DF90C00C8703A /* DirectoryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryEntry.swift; sourceTree = "<group>"; };
+		43DFDAE420373DE4005832C0 /* URL+Comparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Comparable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				433D26BB20308CC200C870FB /* DocumentController.swift */,
 				433D26B720308A3A00C870FB /* Document.swift */,
 				4381FB23202DF90C00C8703A /* DirectoryEntry.swift */,
+				43DFDAE420373DE4005832C0 /* URL+Comparable.swift */,
 				4381FB17202DE6A000C8703A /* Assets.xcassets */,
 				4381FB19202DE6A000C8703A /* Main.storyboard */,
 				4381FB1C202DE6A000C8703A /* Info.plist */,
@@ -147,6 +150,7 @@
 				4381FB24202DF90C00C8703A /* DirectoryEntry.swift in Sources */,
 				4381FB16202DE6A000C8703A /* ViewController.swift in Sources */,
 				4381FB14202DE6A000C8703A /* AppDelegate.swift in Sources */,
+				43DFDAE520373DE4005832C0 /* URL+Comparable.swift in Sources */,
 				433D26B820308A3A00C870FB /* Document.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

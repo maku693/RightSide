@@ -13,11 +13,27 @@ class Document: NSDocument {
 
     @objc dynamic var directoryEntries = [DirectoryEntry]()
 
+    override func defaultDraftName() -> String {
+        return NSLocalizedString("No item", comment: "")
+    }
+
+    override var displayName: String! {
+        didSet {
+            for windowController in windowControllers {
+                windowController.synchronizeWindowTitleWithDocumentName()
+            }
+        }
+    }
+
     override func read(from url: URL, ofType typeName: String) throws {
+        let isURLAlreadyLoaded = directoryEntries.map { $0.url.absoluteString }.contains(url.absoluteString)
+        if isURLAlreadyLoaded { return }
         let directoryEntry = DirectoryEntry(url: url)
         directoryEntry.delegate = self
         directoryEntries.append(directoryEntry)
+        directoryEntries.sort { $0.url < $1.url }
 
+        // Update title
         if directoryEntries.count == 1 {
             displayName = directoryEntries.first!.title
         } else {
@@ -57,9 +73,7 @@ class Document: NSDocument {
         for i in indexSet.reversed() {
             directoryEntries.remove(at: i)
         }
-        if directoryEntries.isEmpty {
-            close()
-        }
+        displayName = defaultDraftName()
     }
 
 }

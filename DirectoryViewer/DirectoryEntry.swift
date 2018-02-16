@@ -49,20 +49,8 @@ class DirectoryEntry: NSObject {
     }
 
     static func entriesFor(_ url: URL) -> [DirectoryEntry] {
-        guard let entryURLs = try? FileManager.default.contentsOfDirectory(
-            at: url,
-            includingPropertiesForKeys: [.isDirectoryKey, .isPackageKey],
-            options: [.skipsHiddenFiles]) else { return [] }
-
-        return entryURLs
-            .sorted {
-                if let a: String = $0.absoluteString.removingPercentEncoding, let b = $1.absoluteString.removingPercentEncoding {
-                    return a.localizedCaseInsensitiveCompare(b) == .orderedAscending
-                } else {
-                    return true
-                }
-            }
-            .map { DirectoryEntry(url: $0) }
+        guard let entryURLs = try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: [.isDirectoryKey, .isPackageKey], options: [.skipsHiddenFiles]) else { return [] }
+        return entryURLs.sorted().map { DirectoryEntry(url: $0) }
     }
 
 }

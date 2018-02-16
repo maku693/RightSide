@@ -691,6 +691,29 @@
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="240" height="200"/>
+                        <toolbar key="toolbar" implicitIdentifier="B113D063-2B73-4605-BECE-A1B7C00317E6" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="7dn-mj-D8w">
+                            <allowedToolbarItems>
+                                <toolbarItem implicitItemIdentifier="7E4F9930-6515-416D-B75B-87B71333CF29" label="Add Folder" paletteLabel="Add Folder" image="Add Folder" id="9Fg-PL-hv4">
+                                    <nil key="toolTip"/>
+                                    <size key="minSize" width="40" height="25"/>
+                                    <size key="maxSize" width="40" height="25"/>
+                                    <button key="view" verticalHuggingPriority="750" id="Qk6-g5-OZ3">
+                                        <rect key="frame" x="13" y="14" width="40" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Add Folder" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uPL-6u-Qgs">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="openDocument:" target="Oky-zY-oP4" id="gs0-Ru-mrl"/>
+                                        </connections>
+                                    </button>
+                                </toolbarItem>
+                            </allowedToolbarItems>
+                            <defaultToolbarItems>
+                                <toolbarItem reference="9Fg-PL-hv4"/>
+                            </defaultToolbarItems>
+                        </toolbar>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                         </connections>
@@ -701,7 +724,7 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="250"/>
+            <point key="canvasLocation" x="75" y="300"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -826,10 +849,11 @@
                     </connections>
                 </treeController>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="75" y="705"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Add Folder" width="19" height="19"/>
         <image name="NSActionTemplate" width="14" height="14"/>
     </resources>
 </document>

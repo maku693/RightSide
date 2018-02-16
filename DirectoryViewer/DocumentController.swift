@@ -13,11 +13,14 @@ class DocumentController: NSDocumentController {
     override func openDocument(_ sender: Any?) {
         beginOpenPanel { [unowned self] urls in
             guard let urls = urls else { return }
-            let document = Document()
-            for url in urls {
-                let type = try! self.typeForContents(of: url)
-                try! document.read(from: url, ofType: type)
+
+            if let document = self.currentDocument as? Document {
+                self.readURLs(urls, into: document)
+                return
             }
+
+            let document = Document()
+            self.readURLs(urls, into: document)
             self.addDocument(document)
             document.makeWindowControllers()
             document.showWindows()
@@ -28,6 +31,18 @@ class DocumentController: NSDocumentController {
         openPanel.canChooseFiles = false
         openPanel.canChooseDirectories = true
         super.beginOpenPanel(openPanel, forTypes: inTypes, completionHandler: completionHandler)
+    }
+
+    func readURLs(_ urls: [URL], into document: Document) {
+        for url in urls {
+            do {
+                let type = try self.typeForContents(of: url)
+                try document.read(from: url, ofType: type)
+                noteNewRecentDocumentURL(url)
+            } catch {
+                presentError(error)
+            }
+        }
     }
 
 }
