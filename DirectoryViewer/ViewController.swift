@@ -36,13 +36,15 @@ class ViewController: NSViewController {
     }
 
     override func keyDown(with event: NSEvent) {
-        if event.charactersIgnoringModifiers == " " {
-            if let appDelegate = NSApp.delegate as? AppDelegate {
-                appDelegate.togglePreviewPanel()
-                return
-            }
+        switch event.keyCode {
+        case 49: // Space
+            togglePreviewPanel()
+        case 123, 124, 125, 126: // Left, Right, Up, Down
+            outlineView.keyDown(with: event)
+            QLPreviewPanel.shared().reloadData()
+        default:
+            nextResponder?.keyDown(with: event)
         }
-        nextResponder?.keyDown(with: event)
     }
 
     @IBAction func showActiveEntriesInFinder(_ sender: Any) {
@@ -56,6 +58,14 @@ class ViewController: NSViewController {
     @IBAction func removeActiveEntriesFromDocument(_ sender: Any) {
         let rootIndices = activeIndexPaths.flatMap { $0[0] }
         document?.removeRootEntriesForIndexSet(IndexSet(rootIndices))
+    }
+
+    func togglePreviewPanel() {
+        if QLPreviewPanel.sharedPreviewPanelExists() && QLPreviewPanel.shared().isVisible {
+            QLPreviewPanel.shared().orderOut(nil)
+        } else if !selectionIndexPaths.isEmpty {
+            QLPreviewPanel.shared().makeKeyAndOrderFront(nil)
+        }
     }
 
     override func acceptsPreviewPanelControl(_ panel: QLPreviewPanel!) -> Bool {
