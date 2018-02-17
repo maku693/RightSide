@@ -10,21 +10,4 @@ import Cocoa
 import Quartz
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
-
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        showOpenPanelIfNecessay()
-    }
-
-    func applicationShouldOpenUntitledFile(_ sender: NSApplication) -> Bool {
-        return false
-    }
-
-    func showOpenPanelIfNecessay() {
-        if DocumentController.shared.documents.count == 0 {
-            DocumentController.shared.openDocument(self)
-        }
-    }
-
-}
-
+class AppDelegate: NSObject, NSApplicationDelegate { }
