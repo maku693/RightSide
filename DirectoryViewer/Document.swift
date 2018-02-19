@@ -25,6 +25,14 @@ class Document: NSDocument {
         }
     }
 
+    func updateDisplayName() {
+        if directoryEntries.count == 1 {
+            displayName = directoryEntries.first!.title
+        } else {
+            displayName = String(format: NSLocalizedString("%d items", comment: ""), directoryEntries.count)
+        }
+    }
+
     override func read(from url: URL, ofType typeName: String) throws {
         let isURLAlreadyLoaded = directoryEntries.map { $0.url.absoluteString }.contains(url.absoluteString)
         if isURLAlreadyLoaded { return }
@@ -33,12 +41,7 @@ class Document: NSDocument {
         directoryEntries.append(directoryEntry)
         directoryEntries.sort { $0.url < $1.url }
 
-        // Update title
-        if directoryEntries.count == 1 {
-            displayName = directoryEntries.first!.title
-        } else {
-            displayName = String(format: NSLocalizedString("%d items", comment: ""), directoryEntries.count)
-        }
+        updateDisplayName()
     }
 
     override func makeWindowControllers() {
@@ -73,7 +76,7 @@ class Document: NSDocument {
         for i in indexSet.reversed() {
             directoryEntries.remove(at: i)
         }
-        displayName = defaultDraftName()
+        updateDisplayName()
     }
 
 }
