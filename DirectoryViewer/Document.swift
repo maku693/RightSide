@@ -11,81 +11,41 @@ import Quartz
 
 class Document: NSDocument {
 
-    @objc dynamic var directoryEntries = [DirectoryEntry]()
+    @objc dynamic var directoryEntries = Set<DirectoryEntry>() {
+        didSet { updateDisplayName() }
+    }
 
     override func defaultDraftName() -> String {
         return NSLocalizedString("No item", comment: "")
     }
 
-    override var displayName: String! {
-        didSet {
-            for windowController in windowControllers {
-                windowController.synchronizeWindowTitleWithDocumentName()
-            }
-        }
-    }
+    var windowController: NSWindowController? { return windowControllers.first }
 
     func updateDisplayName() {
-        if directoryEntries.count == 1 {
+        switch directoryEntries.count {
+        case 0:
+            displayName = defaultDraftName()
+        case 1:
             displayName = directoryEntries.first!.title
-        } else {
+        default:
             displayName = String(format: NSLocalizedString("%d items", comment: ""), directoryEntries.count)
         }
+        windowController?.synchronizeWindowTitleWithDocumentName()
     }
 
-    override func read(from url: URL, ofType typeName: String) throws {
-        let isURLAlreadyLoaded = directoryEntries.map { $0.url.absoluteString }.contains(url.absoluteString)
-        if isURLAlreadyLoaded { return }
-        let directoryEntry = DirectoryEntry(url: url)
-        directoryEntry.delegate = self
-        directoryEntries.append(directoryEntry)
-        directoryEntries.sort { $0.url < $1.url }
-
+    override func read(from URL: URL, ofType typeName: String) throws {
+        let directoryEntry = DirectoryEntry(URL: URL)
+        directoryEntries.insert(directoryEntry)
         updateDisplayName()
     }
 
     override func makeWindowControllers() {
-        guard self.windowControllers.isEmpty else { return }
+        guard windowControllers.isEmpty else { return }
 
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
-        let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Window Controller")) as! NSWindowController
+        guard let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Window Controller")) as? NSWindowController else { return }
         addWindowController(windowController)
         windowController.contentViewController?.representedObject = self
-    }
-
-    func entriesForIndexPaths(_ indexPaths: [IndexPath]) -> [DirectoryEntry] {
-        return indexPaths.map { indexPath in
-            let currentIndex = indexPath.first!
-            return directoryEntries[currentIndex].entryAtIndexPath(indexPath.dropFirst())
-        }
-    }
-
-    func showEntriesForIndexPathsInFinder(_ indexPaths: [IndexPath]) {
-        let urls = entriesForIndexPaths(indexPaths).map { $0.url }
-        NSWorkspace.shared.activateFileViewerSelecting(urls)
-    }
-
-    func openEntriesForIndexPathsWithExternalEditor(_ indexPaths: [IndexPath]) {
-        for entry in entriesForIndexPaths(indexPaths) {
-            NSWorkspace.shared.openFile(entry.url.absoluteString)
-        }
-    }
-
-    func removeRootEntriesForIndexSet(_ indexSet: IndexSet) {
-        // IndexSet should be visited backwards to correctly remove items in an array
-        for i in indexSet.reversed() {
-            directoryEntries.remove(at: i)
-        }
-        updateDisplayName()
-    }
-
-}
-
-extension Document: DirectoryEntryDelegate {
-
-    func directoryEntryWillDelete(_ directoryEntry: DirectoryEntry) {
-        guard let i = directoryEntries.index(of: directoryEntry) else { return }
-        removeRootEntriesForIndexSet([i])
     }
 
 }

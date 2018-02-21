@@ -11,73 +11,41 @@ import Quartz
 
 class DirectoryEntry: NSObject {
 
-    var url: URL
+    var URL: URL
     @objc dynamic var isFile: Bool
-    @objc dynamic lazy var title: String = url.lastPathComponent
-    @objc dynamic lazy var image: NSImage = NSWorkspace.shared.icon(forFile: url.path)
-    @objc dynamic lazy var children: [DirectoryEntry] = isFile ? [] : DirectoryEntry.entriesFor(url)
+    @objc dynamic lazy var title: String = URL.lastPathComponent
+    @objc dynamic lazy var image: NSImage = NSWorkspace.shared.icon(forFile: URL.path)
+    @objc dynamic lazy var children: Set<DirectoryEntry> = {
+        if isFile { return [] }
+        guard let URLs = try? FileManager.default.contentsOfDirectory(at: URL, includingPropertiesForKeys: [.isDirectoryKey, .isPackageKey], options: [.skipsHiddenFiles]) else { return [] }
+        let entries = URLs.map { DirectoryEntry(URL: $0) }
+        return Set(entries)
+    }()
 
-    var delegate: DirectoryEntryDelegate?
-
-    init(url: URL) {
-        self.url = url.absoluteURL
+    init(URL: URL) {
+        self.URL = URL.absoluteURL
         self.isFile = true
 
-        if let resourceValues = try? url.resourceValues(forKeys: [.isDirectoryKey, .isPackageKey]),
+        if let resourceValues = try? URL.resourceValues(forKeys: [.isDirectoryKey, .isPackageKey]),
             let isDirectory = resourceValues.isDirectory,
             let isPackage = resourceValues.isPackage {
             self.isFile = !isDirectory || isPackage
         }
 
         super.init()
-
-        NSFileCoordinator.addFilePresenter(self)
     }
 
-    deinit {
-        NSFileCoordinator.removeFilePresenter(self)
-    }
-    
-    func entryAtIndexPath(_ indexPath: IndexPath) -> DirectoryEntry {
-        if indexPath.isEmpty {
-            return self
-        }
-        let child = children[indexPath.first!]
-        return child.entryAtIndexPath(indexPath.dropFirst())
-    }
-
-    static func entriesFor(_ url: URL) -> [DirectoryEntry] {
-        guard let entryURLs = try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: [.isDirectoryKey, .isPackageKey], options: [.skipsHiddenFiles]) else { return [] }
-        return entryURLs.sorted().map { DirectoryEntry(url: $0) }
-    }
-
-}
-
-extension DirectoryEntry: NSFilePresenter {
-
-    var presentedItemURL: URL? { return url }
-    var presentedItemOperationQueue: OperationQueue { return .main }
-
-    func presentedItemDidChange() {
-        if isFile { return }
-        children = DirectoryEntry.entriesFor(url)
-    }
-
-    func accommodatePresentedItemDeletion(completionHandler: @escaping (Error?) -> Void) {
-        delegate?.directoryEntryWillDelete(self)
-        completionHandler(nil)
+    override func isEqual(_ object: Any?) -> Bool {
+        guard let other = object as? DirectoryEntry else { return false }
+        return URL.path == other.URL.path
     }
 
 }
 
 extension DirectoryEntry: QLPreviewItem {
 
-    var previewItemURL: URL! { return url }
+    var previewItemURL: URL! { return URL }
     var previewItemTitle: String { return title }
 
-}
-
-protocol DirectoryEntryDelegate {
-    func directoryEntryWillDelete(_ directoryEntry: DirectoryEntry)
 }
 

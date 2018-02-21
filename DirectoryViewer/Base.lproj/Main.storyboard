@@ -274,8 +274,8 @@
                                         </tableColumn>
                                     </tableColumns>
                                     <connections>
-                                        <binding destination="hSH-Pn-4LR" name="content" keyPath="arrangedObjects" id="p0j-zS-oAp"/>
-                                        <binding destination="hSH-Pn-4LR" name="selectionIndexPaths" keyPath="selectionIndexPaths" previousBinding="p0j-zS-oAp" id="gu2-sg-AgN"/>
+                                        <binding destination="hSH-Pn-4LR" name="content" keyPath="arrangedObjects" id="pQ8-z6-tdK"/>
+                                        <binding destination="hSH-Pn-4LR" name="selectionIndexPaths" keyPath="selectionIndexPaths" previousBinding="pQ8-z6-tdK" id="YFD-H9-QXF"/>
                                         <outlet property="dataSource" destination="XfG-lQ-9wD" id="OXy-fo-wJe"/>
                                         <outlet property="menu" destination="aIk-lA-dfR" id="gML-3I-kHU"/>
                                     </connections>
@@ -294,6 +294,7 @@
                     </scrollView>
                     <connections>
                         <outlet property="outlineView" destination="a1D-vH-0vr" id="TXg-QV-mis"/>
+                        <outlet property="treeController" destination="hSH-Pn-4LR" id="jQe-3Y-K8P"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -316,7 +317,7 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="removeActiveEntriesFromDocument:" target="XfG-lQ-9wD" id="mCK-uf-dWb"/>
-                                <binding destination="XfG-lQ-9wD" name="enabled" keyPath="shouldEnableRemoveReference" id="HzP-u7-2cG"/>
+                                <binding destination="XfG-lQ-9wD" name="enabled" keyPath="isSelectingRootNodesOnly" id="s1X-Ek-Zaz"/>
                             </connections>
                         </menuItem>
                     </items>
@@ -327,8 +328,7 @@
                         <string>image</string>
                     </declaredKeys>
                     <connections>
-                        <binding destination="XfG-lQ-9wD" name="contentArray" keyPath="representedObject.directoryEntries" id="iEk-Pp-ya2"/>
-                        <binding destination="XfG-lQ-9wD" name="selectionIndexPaths" keyPath="selectionIndexPaths" id="WHT-af-Zr9"/>
+                        <binding destination="XfG-lQ-9wD" name="contentSet" keyPath="representedObject.directoryEntries" id="3B1-LG-6gt"/>
                     </connections>
                 </treeController>
             </objects>

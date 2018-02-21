@@ -11,28 +11,60 @@ import Quartz
 
 class ViewController: NSViewController {
 
+    // MARK: Properties
+
+    @IBOutlet weak var treeController: NSTreeController!
     @IBOutlet weak var outlineView: NSOutlineView!
-    @objc dynamic var selectionIndexPaths = [IndexPath]()
 
-    @objc dynamic var activeIndexPaths: [IndexPath] {
-        if !isViewLoaded || outlineView.selectedRowIndexes.contains(outlineView.clickedRow) {
-            return selectionIndexPaths
+    var activeNodes: [NSTreeNode] {
+        if !isViewLoaded {
+            return []
         }
-        guard let item = outlineView.item(atRow: outlineView.clickedRow) as? NSTreeNode else {
-            return selectionIndexPaths
+        if outlineView.selectedRowIndexes.contains(outlineView.clickedRow) {
+            return treeController.selectedNodes
         }
-        return [item.indexPath]
+        guard let clickedNode = outlineView.item(atRow: outlineView.clickedRow) as? NSTreeNode else {
+            return treeController.selectedNodes
+        }
+        return [clickedNode]
     }
 
-    @objc dynamic var shouldEnableRemoveReference: Bool {
-        return activeIndexPaths.reduce(true) { $0 && $1.count == 1 }
+    var activeIndexPaths: [IndexPath] {
+        return activeNodes.map { $0.indexPath }
     }
 
-    var document: Document? { return representedObject as? Document }
+    var activeObjects: [Any] {
+        return activeNodes.map { $0.representedObject }.flatMap { $0 }
+    }
+
+    @objc dynamic var isSelectingRootNodesOnly: Bool {
+        return activeNodes.reduce(true) { $0 && $1.parent == nil }
+    }
+
+    // MARK: Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         outlineView.setDraggingSourceOperationMask(.link, forLocal: false)
+    }
+
+    // MARK: Actions
+
+    @IBAction func showActiveEntriesInFinder(_ sender: Any) {
+        guard let activeEntries = activeObjects as? [DirectoryEntry] else { return }
+        let urls = activeEntries.map { $0.URL }
+        NSWorkspace.shared.activateFileViewerSelecting(urls)
+    }
+
+    @IBAction func openActiveEntriesWithExternalEditor(_ sender: Any) {
+        for object in activeObjects {
+            guard let entry = object as? DirectoryEntry else { continue }
+            NSWorkspace.shared.openFile(entry.URL.path)
+        }
+    }
+
+    @IBAction func removeActiveEntriesFromDocument(_ sender: Any) {
+        treeController.removeObjects(atArrangedObjectIndexPaths: activeIndexPaths)
     }
 
     override func keyDown(with event: NSEvent) {
@@ -47,26 +79,15 @@ class ViewController: NSViewController {
         }
     }
 
-    @IBAction func showActiveEntriesInFinder(_ sender: Any) {
-        document?.showEntriesForIndexPathsInFinder(activeIndexPaths)
-    }
-
-    @IBAction func openActiveEntriesWithExternalEditor(_ sender: Any) {
-        document?.openEntriesForIndexPathsWithExternalEditor(activeIndexPaths)
-    }
-
-    @IBAction func removeActiveEntriesFromDocument(_ sender: Any) {
-        let rootIndices = activeIndexPaths.flatMap { $0[0] }
-        document?.removeRootEntriesForIndexSet(IndexSet(rootIndices))
-    }
-
-    func togglePreviewPanel() {
+    private func togglePreviewPanel() {
         if QLPreviewPanel.sharedPreviewPanelExists() && QLPreviewPanel.shared().isVisible {
             QLPreviewPanel.shared().orderOut(nil)
-        } else if !selectionIndexPaths.isEmpty {
+        } else if !treeController.selectionIndexPaths.isEmpty {
             QLPreviewPanel.shared().makeKeyAndOrderFront(nil)
         }
     }
+
+    // MARK: QuickLook
 
     override func acceptsPreviewPanelControl(_ panel: QLPreviewPanel!) -> Bool {
         return true
@@ -88,9 +109,12 @@ extension ViewController: NSOutlineViewDataSource {
     func outlineView(_ outlineView: NSOutlineView, writeItems items: [Any], to pasteboard: NSPasteboard) -> Bool {
         guard let nodes = items as? [NSTreeNode] else { return false }
         let urls = nodes
-            .map { $0.representedObject as? DirectoryEntry }
-            .flatMap { $0?.url } // Exclude `nil`
-            .map { $0 as NSURL }
+            .map { node -> NSURL? in
+                let entry = node.representedObject as? DirectoryEntry
+                let url = entry?.URL as NSURL?
+                return url
+            }
+            .flatMap { $0 }
         pasteboard.writeObjects(urls)
         return true
     }
@@ -104,7 +128,7 @@ extension ViewController: QLPreviewPanelDataSource {
     }
 
     func previewPanel(_ panel: QLPreviewPanel!, previewItemAt index: Int) -> QLPreviewItem! {
-        return document?.entriesForIndexPaths(activeIndexPaths)[index]
+        return activeObjects[index] as? DirectoryEntry
     }
 
 }
