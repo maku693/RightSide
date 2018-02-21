@@ -276,6 +276,7 @@
                                     <connections>
                                         <binding destination="hSH-Pn-4LR" name="content" keyPath="arrangedObjects" id="pQ8-z6-tdK"/>
                                         <binding destination="hSH-Pn-4LR" name="selectionIndexPaths" keyPath="selectionIndexPaths" previousBinding="pQ8-z6-tdK" id="YFD-H9-QXF"/>
+                                        <binding destination="hSH-Pn-4LR" name="sortDescriptors" keyPath="sortDescriptors" previousBinding="YFD-H9-QXF" id="rdf-kH-C6r"/>
                                         <outlet property="dataSource" destination="XfG-lQ-9wD" id="OXy-fo-wJe"/>
                                         <outlet property="menu" destination="aIk-lA-dfR" id="gML-3I-kHU"/>
                                     </connections>

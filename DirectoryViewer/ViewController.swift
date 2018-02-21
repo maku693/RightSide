@@ -45,6 +45,7 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        treeController.sortDescriptors.append(NSSortDescriptor(key: "title", ascending: true, selector: #selector(NSString.localizedStandardCompare(_:))))
         outlineView.setDraggingSourceOperationMask(.link, forLocal: false)
     }
 
