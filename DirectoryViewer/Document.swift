@@ -23,7 +23,9 @@ class Document: NSDocument {
 
     override func read(from URL: URL, ofType typeName: String) throws {
         let directoryEntry = DirectoryEntry(URL: URL)
-        directoryEntries.insert(directoryEntry)
+        let (inserted, _) = directoryEntries.insert(directoryEntry)
+        guard inserted else { return }
+        directoryEntry.delegate = self
         updateDisplayName()
     }
 
@@ -46,6 +48,14 @@ class Document: NSDocument {
             displayName = String(format: NSLocalizedString("%d items", comment: ""), directoryEntries.count)
         }
         windowController?.synchronizeWindowTitleWithDocumentName()
+    }
+
+}
+
+extension Document: DirectoryEntryDelegate {
+
+    func directoryEntryDidDelete(_ directoryEntry: DirectoryEntry) {
+        directoryEntries.remove(directoryEntry)
     }
 
 }

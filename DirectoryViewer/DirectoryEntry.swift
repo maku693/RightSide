@@ -9,24 +9,28 @@
 import Cocoa
 import Quartz
 
+protocol DirectoryEntryDelegate {
+    func directoryEntryDidDelete(_ directoryEntry: DirectoryEntry)
+}
+
 class DirectoryEntry: NSObject {
 
     var URL: URL
     @objc dynamic var isFile: Bool
     @objc dynamic lazy var title: String = URL.lastPathComponent
     @objc dynamic lazy var image: NSImage = NSWorkspace.shared.icon(forFile: URL.path)
-    @objc dynamic lazy var children: Set<DirectoryEntry> = {
-        if isFile { return [] }
-        guard let URLs = try? FileManager.default.contentsOfDirectory(at: URL, includingPropertiesForKeys: [.isDirectoryKey, .isPackageKey], options: [.skipsHiddenFiles]) else { return [] }
-        let entries = URLs.map { DirectoryEntry(URL: $0) }
-        return Set(entries)
-    }()
+    @objc dynamic lazy var children: Set<DirectoryEntry> = loadChildren()
+
+    var delegate: DirectoryEntryDelegate?
 
     override var hash: Int { return URL.path.hash }
+
+    private var fileSystemMonitor: FileSystemMonitor
 
     init(URL: URL) {
         self.URL = URL.absoluteURL
         self.isFile = true
+        self.fileSystemMonitor = FileSystemMonitor(monitoringURL: URL)
 
         if let resourceValues = try? URL.resourceValues(forKeys: [.isDirectoryKey, .isPackageKey]),
             let isDirectory = resourceValues.isDirectory,
@@ -35,11 +39,21 @@ class DirectoryEntry: NSObject {
         }
 
         super.init()
+
+        fileSystemMonitor.delegate = self
+        fileSystemMonitor.startMonitoring()
     }
 
     override func isEqual(_ object: Any?) -> Bool {
         guard let other = object as? DirectoryEntry else { return false }
         return URL.path == other.URL.path
+    }
+
+    private func loadChildren() -> Set<DirectoryEntry> {
+        if isFile { return [] }
+        guard let URLs = try? FileManager.default.contentsOfDirectory(at: URL, includingPropertiesForKeys: [.isDirectoryKey, .isPackageKey], options: [.skipsHiddenFiles]) else { return [] }
+        let entries = URLs.map { DirectoryEntry(URL: $0) }
+        return Set(entries)
     }
 
 }
@@ -51,3 +65,18 @@ extension DirectoryEntry: QLPreviewItem {
 
 }
 
+extension DirectoryEntry: FileSystemMonitorDelegate {
+
+    func fileSystemMonitorDidObserveChange(_ fileSystemMonitor: FileSystemMonitor) {
+        let newChildren = loadChildren()
+        let removed = children.subtracting(newChildren)
+        let added = newChildren.subtracting(children)
+        children.subtract(removed)
+        children.formUnion(added)
+    }
+
+    func fileSystemMonitorDidObserveDelete(_ fileSystemMonitor: FileSystemMonitor) {
+        delegate?.directoryEntryDidDelete(self)
+    }
+
+}

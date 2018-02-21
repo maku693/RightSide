@@ -14,6 +14,7 @@
 		4381FB1B202DE6A000C8703A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4381FB19202DE6A000C8703A /* Main.storyboard */; };
 		43D09FA2203C709F00082CDE /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D09FA1203C709F00082CDE /* Document.swift */; };
 		43D09FA4203C76B500082CDE /* DirectoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D09FA3203C76B500082CDE /* DirectoryEntry.swift */; };
+		43D09FA6203DD24800082CDE /* FileSystemMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D09FA5203DD24800082CDE /* FileSystemMonitor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		4381FB1D202DE6A000C8703A /* DirectoryViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DirectoryViewer.entitlements; sourceTree = "<group>"; };
 		43D09FA1203C709F00082CDE /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		43D09FA3203C76B500082CDE /* DirectoryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryEntry.swift; sourceTree = "<group>"; };
+		43D09FA5203DD24800082CDE /* FileSystemMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemMonitor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				433D26BB20308CC200C870FB /* DocumentController.swift */,
 				43D09FA1203C709F00082CDE /* Document.swift */,
 				43D09FA3203C76B500082CDE /* DirectoryEntry.swift */,
+				43D09FA5203DD24800082CDE /* FileSystemMonitor.swift */,
 				4381FB17202DE6A000C8703A /* Assets.xcassets */,
 				4381FB19202DE6A000C8703A /* Main.storyboard */,
 				4381FB1C202DE6A000C8703A /* Info.plist */,
@@ -143,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43D09FA6203DD24800082CDE /* FileSystemMonitor.swift in Sources */,
 				43D09FA2203C709F00082CDE /* Document.swift in Sources */,
 				433D26BC20308CC200C870FB /* DocumentController.swift in Sources */,
 				4381FB16202DE6A000C8703A /* ViewController.swift in Sources */,
