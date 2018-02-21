@@ -22,6 +22,8 @@ class DirectoryEntry: NSObject {
         return Set(entries)
     }()
 
+    override var hash: Int { return URL.path.hash }
+
     init(URL: URL) {
         self.URL = URL.absoluteURL
         self.isFile = true
