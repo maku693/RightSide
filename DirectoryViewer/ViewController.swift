@@ -38,7 +38,7 @@ class ViewController: NSViewController {
     }
 
     @objc dynamic var isSelectingRootNodesOnly: Bool {
-        return activeNodes.reduce(true) { $0 && $1.parent == nil }
+        return activeNodes.reduce(true) { $0 && $1.parent?.parent == nil }
     }
 
     // MARK: Lifecycle
