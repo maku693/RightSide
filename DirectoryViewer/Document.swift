@@ -15,22 +15,10 @@ class Document: NSDocument {
         didSet { updateDisplayName() }
     }
 
-    override func defaultDraftName() -> String {
-        return NSLocalizedString("No item", comment: "")
-    }
-
     var windowController: NSWindowController? { return windowControllers.first }
 
-    func updateDisplayName() {
-        switch directoryEntries.count {
-        case 0:
-            displayName = defaultDraftName()
-        case 1:
-            displayName = directoryEntries.first!.title
-        default:
-            displayName = String(format: NSLocalizedString("%d items", comment: ""), directoryEntries.count)
-        }
-        windowController?.synchronizeWindowTitleWithDocumentName()
+    override func defaultDraftName() -> String {
+        return NSLocalizedString("No item", comment: "")
     }
 
     override func read(from URL: URL, ofType typeName: String) throws {
@@ -46,6 +34,18 @@ class Document: NSDocument {
         guard let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Window Controller")) as? NSWindowController else { return }
         addWindowController(windowController)
         windowController.contentViewController?.representedObject = self
+    }
+
+    private func updateDisplayName() {
+        switch directoryEntries.count {
+        case 0:
+            displayName = defaultDraftName()
+        case 1:
+            displayName = directoryEntries.first!.title
+        default:
+            displayName = String(format: NSLocalizedString("%d items", comment: ""), directoryEntries.count)
+        }
+        windowController?.synchronizeWindowTitleWithDocumentName()
     }
 
 }
