@@ -68,11 +68,18 @@ extension DirectoryEntry: QLPreviewItem {
 extension DirectoryEntry: FileSystemMonitorDelegate {
 
     func fileSystemMonitorDidObserveChange(_ fileSystemMonitor: FileSystemMonitor) {
+        if isFile { return }
         let newChildren = loadChildren()
         let removed = children.subtracting(newChildren)
         let added = newChildren.subtracting(children)
-        children.subtract(removed)
-        children.formUnion(added)
+        DispatchQueue.main.sync {
+            if !removed.isEmpty {
+                children.subtract(removed)
+            }
+            if !added.isEmpty {
+                children.formUnion(added)
+            }
+        }
     }
 
     func fileSystemMonitorDidObserveDelete(_ fileSystemMonitor: FileSystemMonitor) {
