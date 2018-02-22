@@ -17,7 +17,7 @@ class DirectoryEntry: NSObject {
 
     var URL: URL
     @objc dynamic var isFile: Bool
-    @objc dynamic lazy var title: String = URL.lastPathComponent
+    @objc dynamic lazy var title: String = FileManager.default.displayName(atPath: URL.path)
     @objc dynamic lazy var image: NSImage = NSWorkspace.shared.icon(forFile: URL.path)
     @objc dynamic lazy var children: Set<DirectoryEntry> = loadChildren()
 
