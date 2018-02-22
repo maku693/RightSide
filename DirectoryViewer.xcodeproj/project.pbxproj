@@ -15,6 +15,7 @@
 		43D09FA2203C709F00082CDE /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D09FA1203C709F00082CDE /* Document.swift */; };
 		43D09FA4203C76B500082CDE /* DirectoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D09FA3203C76B500082CDE /* DirectoryEntry.swift */; };
 		43D09FA6203DD24800082CDE /* FileSystemMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D09FA5203DD24800082CDE /* FileSystemMonitor.swift */; };
+		43D09FA8203EF68C00082CDE /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D09FA7203EF68C00082CDE /* WindowController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		43D09FA1203C709F00082CDE /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		43D09FA3203C76B500082CDE /* DirectoryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryEntry.swift; sourceTree = "<group>"; };
 		43D09FA5203DD24800082CDE /* FileSystemMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemMonitor.swift; sourceTree = "<group>"; };
+		43D09FA7203EF68C00082CDE /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				4381FB13202DE6A000C8703A /* AppDelegate.swift */,
+				43D09FA7203EF68C00082CDE /* WindowController.swift */,
 				4381FB15202DE6A000C8703A /* ViewController.swift */,
 				433D26BB20308CC200C870FB /* DocumentController.swift */,
 				43D09FA1203C709F00082CDE /* Document.swift */,
@@ -149,6 +152,7 @@
 				43D09FA6203DD24800082CDE /* FileSystemMonitor.swift in Sources */,
 				43D09FA2203C709F00082CDE /* Document.swift in Sources */,
 				433D26BC20308CC200C870FB /* DocumentController.swift in Sources */,
+				43D09FA8203EF68C00082CDE /* WindowController.swift in Sources */,
 				4381FB16202DE6A000C8703A /* ViewController.swift in Sources */,
 				4381FB14202DE6A000C8703A /* AppDelegate.swift in Sources */,
 				43D09FA4203C76B500082CDE /* DirectoryEntry.swift in Sources */,

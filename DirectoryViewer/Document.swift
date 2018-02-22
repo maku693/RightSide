@@ -33,7 +33,7 @@ class Document: NSDocument {
         guard windowControllers.isEmpty else { return }
 
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
-        guard let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Window Controller")) as? NSWindowController else { return }
+        guard let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Window Controller")) as? WindowController else { return }
         addWindowController(windowController)
         windowController.contentViewController?.representedObject = self
     }
