@@ -21,13 +21,14 @@ class FileSystemMonitor {
     var delegate: FileSystemMonitorDelegate?
 
     private var dispatchSource: DispatchSourceFileSystemObject?
+    private var fileDescriptor: Int32
 
     init(monitoringURL: URL) {
         self.monitoringURL = monitoringURL
 
-        var fileDescriptor: Int32 = -1
+        fileDescriptor = -1
         fileDescriptor = open(monitoringURL.path, O_EVTONLY)
-        guard fileDescriptor != -1 else { fatalError("Could not open monitoring URL: \(monitoringURL)") }
+        guard fileDescriptor != -1 else { return }
 
         dispatchSource = DispatchSource.makeFileSystemObjectSource(fileDescriptor: fileDescriptor, eventMask: [.write, .delete])
         dispatchSource?.setEventHandler { [weak self] in
@@ -43,6 +44,11 @@ class FileSystemMonitor {
                 break
             }
         }
+    }
+
+    deinit {
+        dispatchSource?.cancel()
+        close(fileDescriptor)
     }
 
     func startMonitoring() {
