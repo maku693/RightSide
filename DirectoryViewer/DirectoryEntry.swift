@@ -70,6 +70,7 @@ extension DirectoryEntry: FileSystemMonitorDelegate {
     func fileSystemMonitorDidObserveChange(_ fileSystemMonitor: FileSystemMonitor) {
         if isFile { return }
         let newChildren = loadChildren()
+        if children == newChildren { return }
         let removed = children.subtracting(newChildren)
         let added = newChildren.subtracting(children)
         DispatchQueue.main.sync {
