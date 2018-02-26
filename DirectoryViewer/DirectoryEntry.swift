@@ -9,7 +9,7 @@
 import Cocoa
 import Quartz
 
-protocol DirectoryEntryDelegate {
+protocol DirectoryEntryDelegate : class {
     func directoryEntryDidDelete(_ directoryEntry: DirectoryEntry)
 }
 
@@ -21,7 +21,7 @@ class DirectoryEntry: NSObject {
     @objc dynamic lazy var image: NSImage = NSWorkspace.shared.icon(forFile: URL.path)
     @objc dynamic lazy var children: Set<DirectoryEntry> = loadChildren()
 
-    var delegate: DirectoryEntryDelegate?
+    weak var delegate: DirectoryEntryDelegate?
 
     override var hash: Int { return URL.path.hash }
 

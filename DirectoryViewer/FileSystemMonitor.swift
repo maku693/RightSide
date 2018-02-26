@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol FileSystemMonitorDelegate {
+protocol FileSystemMonitorDelegate : class {
 
     func fileSystemMonitorDidObserveChange(_ fileSystemMonitor: FileSystemMonitor)
     func fileSystemMonitorDidObserveDelete(_ fileSystemMonitor: FileSystemMonitor)
@@ -18,7 +18,7 @@ protocol FileSystemMonitorDelegate {
 class FileSystemMonitor {
 
     var monitoringURL: URL
-    var delegate: FileSystemMonitorDelegate?
+    weak var delegate: FileSystemMonitorDelegate?
 
     private var dispatchSource: DispatchSourceFileSystemObject?
     private var fileDescriptor: Int32
