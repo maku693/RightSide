@@ -144,8 +144,9 @@ extension ViewController: QLPreviewPanelDelegate {
 
     func previewPanel(_ panel: QLPreviewPanel!, sourceFrameOnScreenFor item: QLPreviewItem!) -> NSRect {
         guard let cell = outlineView.view(atColumn: outlineView.selectedColumn, row: outlineView.selectedRow, makeIfNecessary: true) as? NSTableCellView else { return .zero }
-        let rectOnWindow = cell.convert(cell.imageView?.frame ?? .zero, to: nil)
-        return cell.window!.convertToScreen(rectOnWindow)
+        let cellRectOnWindow = cell.convert(cell.imageView?.frame ?? .zero, to: nil)
+        if !view.frame.contains(cellRectOnWindow) { return .zero }
+        return cell.window!.convertToScreen(cellRectOnWindow)
     }
 
     func previewPanel(_ panel: QLPreviewPanel!, transitionImageFor item: QLPreviewItem!, contentRect: UnsafeMutablePointer<NSRect>!) -> Any! {
