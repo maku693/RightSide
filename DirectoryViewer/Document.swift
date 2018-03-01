@@ -10,7 +10,6 @@ import Cocoa
 import Quartz
 
 class Document: NSDocument {
-
     @objc dynamic var directoryEntries = Set<DirectoryEntry>() {
         didSet { updateDisplayName() }
     }
@@ -21,7 +20,7 @@ class Document: NSDocument {
         return NSLocalizedString("No item", comment: "")
     }
 
-    override func read(from URL: URL, ofType typeName: String) throws {
+    override func read(from URL: URL, ofType _: String) throws {
         let directoryEntry = DirectoryEntry(URL: URL)
         let (inserted, _) = directoryEntries.insert(directoryEntry)
         guard inserted else { return }
@@ -33,7 +32,10 @@ class Document: NSDocument {
         guard windowControllers.isEmpty else { return }
 
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
-        guard let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Window Controller")) as? WindowController else { return }
+        let windowControllerSceneIdentifier = NSStoryboard.SceneIdentifier("Window Controller")
+        guard let windowController =
+            storyboard.instantiateController(withIdentifier: windowControllerSceneIdentifier) as? WindowController
+        else { return }
         addWindowController(windowController)
         windowController.contentViewController?.representedObject = self
     }
@@ -49,13 +51,10 @@ class Document: NSDocument {
         }
         windowController?.synchronizeWindowTitleWithDocumentName()
     }
-
 }
 
 extension Document: DirectoryEntryDelegate {
-
     func directoryEntryDidDelete(_ directoryEntry: DirectoryEntry) {
         directoryEntries.remove(directoryEntry)
     }
-
 }

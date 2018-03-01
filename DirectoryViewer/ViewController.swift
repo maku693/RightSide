@@ -45,26 +45,29 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        treeController.sortDescriptors.append(NSSortDescriptor(key: "title", ascending: true, selector: #selector(NSString.localizedStandardCompare(_:))))
+        let sortDescriptor = NSSortDescriptor(key: "title",
+                                              ascending: true,
+                                              selector: #selector(NSString.localizedStandardCompare(_:)))
+        treeController.sortDescriptors.append(sortDescriptor)
         outlineView.setDraggingSourceOperationMask(.link, forLocal: false)
     }
 
     // MARK: Actions
 
-    @IBAction func showActiveEntriesInFinder(_ sender: Any) {
+    @IBAction func showActiveEntriesInFinder(_: Any) {
         guard let activeEntries = activeObjects as? [DirectoryEntry] else { return }
         let urls = activeEntries.map { $0.URL }
         NSWorkspace.shared.activateFileViewerSelecting(urls)
     }
 
-    @IBAction func openActiveEntriesWithExternalEditor(_ sender: Any) {
+    @IBAction func openActiveEntriesWithExternalEditor(_: Any) {
         for object in activeObjects {
             guard let entry = object as? DirectoryEntry else { continue }
             NSWorkspace.shared.openFile(entry.URL.path)
         }
     }
 
-    @IBAction func removeActiveEntriesFromDocument(_ sender: Any) {
+    @IBAction func removeActiveEntriesFromDocument(_: Any) {
         treeController.removeObjects(atArrangedObjectIndexPaths: activeIndexPaths)
     }
 
@@ -90,7 +93,7 @@ class ViewController: NSViewController {
 
     // MARK: QuickLook
 
-    override func acceptsPreviewPanelControl(_ panel: QLPreviewPanel!) -> Bool {
+    override func acceptsPreviewPanelControl(_: QLPreviewPanel!) -> Bool {
         return true
     }
 
@@ -99,15 +102,13 @@ class ViewController: NSViewController {
         panel.dataSource = self
     }
 
-    override func endPreviewPanelControl(_ panel: QLPreviewPanel!) {
+    override func endPreviewPanelControl(_: QLPreviewPanel!) {
         // Do Nothing
     }
-
 }
 
 extension ViewController: NSOutlineViewDataSource {
-
-    func outlineView(_ outlineView: NSOutlineView, writeItems items: [Any], to pasteboard: NSPasteboard) -> Bool {
+    func outlineView(_: NSOutlineView, writeItems items: [Any], to pasteboard: NSPasteboard) -> Bool {
         guard let nodes = items as? [NSTreeNode] else { return false }
         let urls = nodes
             .map { node -> NSURL? in
@@ -119,39 +120,39 @@ extension ViewController: NSOutlineViewDataSource {
         pasteboard.writeObjects(urls)
         return true
     }
-
 }
 
 extension ViewController: QLPreviewPanelDataSource {
-
-    func numberOfPreviewItems(in panel: QLPreviewPanel!) -> Int {
+    func numberOfPreviewItems(in _: QLPreviewPanel!) -> Int {
         return activeIndexPaths.count
     }
 
-    func previewPanel(_ panel: QLPreviewPanel!, previewItemAt index: Int) -> QLPreviewItem! {
+    func previewPanel(_: QLPreviewPanel!, previewItemAt index: Int) -> QLPreviewItem! {
         return activeObjects[index] as? DirectoryEntry
     }
-
 }
 
 extension ViewController: QLPreviewPanelDelegate {
-
-    func previewPanel(_ panel: QLPreviewPanel!, handle event: NSEvent!) -> Bool {
+    func previewPanel(_: QLPreviewPanel!, handle event: NSEvent!) -> Bool {
         if event.type != .keyDown { return false }
         keyDown(with: event)
         return true
     }
 
-    func previewPanel(_ panel: QLPreviewPanel!, sourceFrameOnScreenFor item: QLPreviewItem!) -> NSRect {
-        guard let cell = outlineView.view(atColumn: outlineView.selectedColumn, row: outlineView.selectedRow, makeIfNecessary: true) as? NSTableCellView else { return .zero }
+    func previewPanel(_: QLPreviewPanel!, sourceFrameOnScreenFor _: QLPreviewItem!) -> NSRect {
+        guard let cell = outlineView.view(atColumn: outlineView.selectedColumn,
+                                          row: outlineView.selectedRow,
+                                          makeIfNecessary: false) as? NSTableCellView
+        else { return .zero }
         let cellRectOnWindow = cell.convert(cell.imageView?.frame ?? .zero, to: nil)
         if !view.frame.contains(cellRectOnWindow) { return .zero }
         return cell.window!.convertToScreen(cellRectOnWindow)
     }
 
-    func previewPanel(_ panel: QLPreviewPanel!, transitionImageFor item: QLPreviewItem!, contentRect: UnsafeMutablePointer<NSRect>!) -> Any! {
+    func previewPanel(_: QLPreviewPanel!,
+                      transitionImageFor item: QLPreviewItem!,
+                      contentRect _: UnsafeMutablePointer<NSRect>!) -> Any! {
         guard let entry = item as? DirectoryEntry else { return nil }
         return entry.image
     }
-
 }

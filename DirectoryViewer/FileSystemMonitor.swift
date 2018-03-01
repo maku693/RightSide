@@ -8,15 +8,12 @@
 
 import Cocoa
 
-protocol FileSystemMonitorDelegate : class {
-
+protocol FileSystemMonitorDelegate: class {
     func fileSystemMonitorDidObserveChange(_ fileSystemMonitor: FileSystemMonitor)
     func fileSystemMonitorDidObserveDelete(_ fileSystemMonitor: FileSystemMonitor)
-
 }
 
 class FileSystemMonitor {
-
     var monitoringURL: URL
     weak var delegate: FileSystemMonitorDelegate?
 
@@ -30,10 +27,12 @@ class FileSystemMonitor {
         fileDescriptor = open(monitoringURL.path, O_EVTONLY)
         guard fileDescriptor != -1 else { return }
 
-        dispatchSource = DispatchSource.makeFileSystemObjectSource(fileDescriptor: fileDescriptor, eventMask: [.write, .delete])
+        dispatchSource = DispatchSource.makeFileSystemObjectSource(fileDescriptor: fileDescriptor,
+                                                                   eventMask: [.write, .delete])
         dispatchSource?.setEventHandler { [weak self] in
             guard let strongSelf = self,
-                let event = strongSelf.dispatchSource?.data else { return }
+                let event = strongSelf.dispatchSource?.data
+            else { return }
 
             switch event {
             case .write:
@@ -61,9 +60,7 @@ class FileSystemMonitor {
 }
 
 extension FileSystemMonitor: Equatable {
-
-    static func ==(lhs: FileSystemMonitor, rhs: FileSystemMonitor) -> Bool {
+    static func == (lhs: FileSystemMonitor, rhs: FileSystemMonitor) -> Bool {
         return lhs.monitoringURL.path == rhs.monitoringURL.path
     }
-
 }

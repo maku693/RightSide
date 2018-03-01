@@ -9,12 +9,11 @@
 import Cocoa
 import Quartz
 
-protocol DirectoryEntryDelegate : class {
+protocol DirectoryEntryDelegate: class {
     func directoryEntryDidDelete(_ directoryEntry: DirectoryEntry)
 }
 
 class DirectoryEntry: NSObject {
-
     var URL: URL
     @objc dynamic var isFile: Bool
     @objc dynamic lazy var title: String = FileManager.default.displayName(atPath: URL.path)
@@ -29,13 +28,13 @@ class DirectoryEntry: NSObject {
 
     init(URL: URL) {
         self.URL = URL.absoluteURL
-        self.isFile = true
-        self.fileSystemMonitor = FileSystemMonitor(monitoringURL: URL)
+        isFile = true
+        fileSystemMonitor = FileSystemMonitor(monitoringURL: URL)
 
         if let resourceValues = try? URL.resourceValues(forKeys: [.isDirectoryKey, .isPackageKey]),
             let isDirectory = resourceValues.isDirectory,
             let isPackage = resourceValues.isPackage {
-            self.isFile = !isDirectory || isPackage
+            isFile = !isDirectory || isPackage
         }
 
         super.init()
@@ -57,23 +56,24 @@ class DirectoryEntry: NSObject {
 
     private func loadChildren() -> Set<DirectoryEntry> {
         if isFile { return [] }
-        guard let URLs = try? FileManager.default.contentsOfDirectory(at: URL, includingPropertiesForKeys: [.isDirectoryKey, .isPackageKey], options: [.skipsHiddenFiles]) else { return [] }
+        guard let URLs = try? FileManager.default.contentsOfDirectory(at: URL,
+                                                                      includingPropertiesForKeys: [
+                                                                          .isDirectoryKey, .isPackageKey,
+                                                                      ],
+                                                                      options: [.skipsHiddenFiles])
+        else { return [] }
         let entries = URLs.map { DirectoryEntry(URL: $0) }
         return Set(entries)
     }
-
 }
 
 extension DirectoryEntry: QLPreviewItem {
-
     var previewItemURL: URL! { return URL }
     var previewItemTitle: String { return title }
-
 }
 
 extension DirectoryEntry: FileSystemMonitorDelegate {
-
-    func fileSystemMonitorDidObserveChange(_ fileSystemMonitor: FileSystemMonitor) {
+    func fileSystemMonitorDidObserveChange(_: FileSystemMonitor) {
         if isFile { return }
         let newChildren = loadChildren()
         if children == newChildren { return }
@@ -89,8 +89,7 @@ extension DirectoryEntry: FileSystemMonitorDelegate {
         }
     }
 
-    func fileSystemMonitorDidObserveDelete(_ fileSystemMonitor: FileSystemMonitor) {
+    func fileSystemMonitorDidObserveDelete(_: FileSystemMonitor) {
         delegate?.directoryEntryDidDelete(self)
     }
-
 }
