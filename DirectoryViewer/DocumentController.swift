@@ -3,7 +3,7 @@
 //  DirectoryViewer
 //
 //  Created by Shota HAMADA on 2018/02/11.
-//  Copyright © 2018年 Shota HAMADA. All rights reserved.
+//  Copyright © 2018 Shota HAMADA. All rights reserved.
 //
 
 import Cocoa
