@@ -13,8 +13,8 @@ class ViewController: NSViewController {
 
     // MARK: Properties
 
-    @IBOutlet weak var treeController: NSTreeController!
-    @IBOutlet weak var outlineView: NSOutlineView!
+    @IBOutlet var treeController: NSTreeController!
+    @IBOutlet var outlineView: NSOutlineView!
 
     var activeNodes: [NSTreeNode] {
         if !isViewLoaded {
