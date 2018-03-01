@@ -20,13 +20,13 @@
 
 /* Begin PBXFileReference section */
 		433D26BB20308CC200C870FB /* DocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
-		4381FB10202DE6A000C8703A /* DirectoryViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DirectoryViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4381FB10202DE6A000C8703A /* RightSide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RightSide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4381FB13202DE6A000C8703A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4381FB15202DE6A000C8703A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4381FB17202DE6A000C8703A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4381FB1A202DE6A000C8703A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4381FB1C202DE6A000C8703A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4381FB1D202DE6A000C8703A /* DirectoryViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DirectoryViewer.entitlements; sourceTree = "<group>"; };
+		4381FB1D202DE6A000C8703A /* RightSide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RightSide.entitlements; sourceTree = "<group>"; };
 		43D09FA1203C709F00082CDE /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		43D09FA3203C76B500082CDE /* DirectoryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryEntry.swift; sourceTree = "<group>"; };
 		43D09FA5203DD24800082CDE /* FileSystemMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemMonitor.swift; sourceTree = "<group>"; };
@@ -47,7 +47,7 @@
 		4381FB07202DE6A000C8703A = {
 			isa = PBXGroup;
 			children = (
-				4381FB12202DE6A000C8703A /* DirectoryViewer */,
+				4381FB12202DE6A000C8703A /* RightSide */,
 				4381FB11202DE6A000C8703A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -55,12 +55,12 @@
 		4381FB11202DE6A000C8703A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4381FB10202DE6A000C8703A /* DirectoryViewer.app */,
+				4381FB10202DE6A000C8703A /* RightSide.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4381FB12202DE6A000C8703A /* DirectoryViewer */ = {
+		4381FB12202DE6A000C8703A /* RightSide */ = {
 			isa = PBXGroup;
 			children = (
 				4381FB13202DE6A000C8703A /* AppDelegate.swift */,
@@ -73,17 +73,17 @@
 				4381FB17202DE6A000C8703A /* Assets.xcassets */,
 				4381FB19202DE6A000C8703A /* Main.storyboard */,
 				4381FB1C202DE6A000C8703A /* Info.plist */,
-				4381FB1D202DE6A000C8703A /* DirectoryViewer.entitlements */,
+				4381FB1D202DE6A000C8703A /* RightSide.entitlements */,
 			);
-			path = DirectoryViewer;
+			path = RightSide;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4381FB0F202DE6A000C8703A /* DirectoryViewer */ = {
+		4381FB0F202DE6A000C8703A /* RightSide */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4381FB20202DE6A000C8703A /* Build configuration list for PBXNativeTarget "DirectoryViewer" */;
+			buildConfigurationList = 4381FB20202DE6A000C8703A /* Build configuration list for PBXNativeTarget "RightSide" */;
 			buildPhases = (
 				4381FB0C202DE6A000C8703A /* Sources */,
 				4381FB0D202DE6A000C8703A /* Frameworks */,
@@ -93,9 +93,9 @@
 			);
 			dependencies = (
 			);
-			name = DirectoryViewer;
-			productName = DirectoryViewer;
-			productReference = 4381FB10202DE6A000C8703A /* DirectoryViewer.app */;
+			name = RightSide;
+			productName = RightSide;
+			productReference = 4381FB10202DE6A000C8703A /* RightSide.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -114,7 +114,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4381FB0B202DE6A000C8703A /* Build configuration list for PBXProject "DirectoryViewer" */;
+			buildConfigurationList = 4381FB0B202DE6A000C8703A /* Build configuration list for PBXProject "RightSide" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -127,7 +127,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4381FB0F202DE6A000C8703A /* DirectoryViewer */,
+				4381FB0F202DE6A000C8703A /* RightSide */,
 			);
 		};
 /* End PBXProject section */
@@ -283,12 +283,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = DirectoryViewer/DirectoryViewer.entitlements;
+				CODE_SIGN_ENTITLEMENTS = RightSide/RightSide.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = DirectoryViewer/Info.plist;
+				INFOPLIST_FILE = RightSide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.maku693.DirectoryViewer;
+				PRODUCT_BUNDLE_IDENTIFIER = net.maku693.RightSide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
@@ -298,12 +298,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = DirectoryViewer/DirectoryViewer.entitlements;
+				CODE_SIGN_ENTITLEMENTS = RightSide/RightSide.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = DirectoryViewer/Info.plist;
+				INFOPLIST_FILE = RightSide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.maku693.DirectoryViewer;
+				PRODUCT_BUNDLE_IDENTIFIER = net.maku693.RightSide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
@@ -312,7 +312,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4381FB0B202DE6A000C8703A /* Build configuration list for PBXProject "DirectoryViewer" */ = {
+		4381FB0B202DE6A000C8703A /* Build configuration list for PBXProject "RightSide" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4381FB1E202DE6A000C8703A /* Debug */,
@@ -321,7 +321,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4381FB20202DE6A000C8703A /* Build configuration list for PBXNativeTarget "DirectoryViewer" */ = {
+		4381FB20202DE6A000C8703A /* Build configuration list for PBXNativeTarget "RightSide" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4381FB21202DE6A000C8703A /* Debug */,
