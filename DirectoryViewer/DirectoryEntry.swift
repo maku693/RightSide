@@ -18,7 +18,7 @@ class DirectoryEntry: NSObject {
     var URL: URL
     @objc dynamic var isFile: Bool
     @objc dynamic lazy var title: String = FileManager.default.displayName(atPath: URL.path)
-    @objc dynamic lazy var image: NSImage = NSWorkspace.shared.icon(forFile: URL.path)
+    @objc dynamic lazy var image: NSImage = loadIcon()
     @objc dynamic lazy var children: Set<DirectoryEntry> = loadChildren()
 
     weak var delegate: DirectoryEntryDelegate?
@@ -47,6 +47,12 @@ class DirectoryEntry: NSObject {
     override func isEqual(_ object: Any?) -> Bool {
         guard let other = object as? DirectoryEntry else { return false }
         return URL.path == other.URL.path
+    }
+
+    private func loadIcon() -> NSImage {
+        let icon = NSWorkspace.shared.icon(forFile: URL.path)
+        icon.size = NSSize(width: 16, height: 16)
+        return icon
     }
 
     private func loadChildren() -> Set<DirectoryEntry> {
