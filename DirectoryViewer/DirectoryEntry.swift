@@ -55,7 +55,7 @@ class DirectoryEntry: NSObject {
     }
 
     private func loadChildren() -> Set<DirectoryEntry> {
-        if isFile { return [] }
+        guard !isFile else { return [] }
         guard let URLs = try? FileManager.default.contentsOfDirectory(at: URL,
                                                                       includingPropertiesForKeys: [
                                                                           .isDirectoryKey, .isPackageKey,
@@ -74,9 +74,9 @@ extension DirectoryEntry: QLPreviewItem {
 
 extension DirectoryEntry: FileSystemMonitorDelegate {
     func fileSystemMonitorDidObserveChange(_: FileSystemMonitor) {
-        if isFile { return }
+        guard !isFile else { return }
         let newChildren = loadChildren()
-        if children == newChildren { return }
+        guard children != newChildren else { return }
         let removed = children.subtracting(newChildren)
         let added = newChildren.subtracting(children)
         DispatchQueue.main.sync {

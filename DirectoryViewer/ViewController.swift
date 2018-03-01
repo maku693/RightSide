@@ -17,10 +17,8 @@ class ViewController: NSViewController {
     @IBOutlet var outlineView: NSOutlineView!
 
     var activeNodes: [NSTreeNode] {
-        if !isViewLoaded {
-            return []
-        }
-        if outlineView.selectedRowIndexes.contains(outlineView.clickedRow) {
+        guard isViewLoaded else { return [] }
+        guard !outlineView.selectedRowIndexes.contains(outlineView.clickedRow) else {
             return treeController.selectedNodes
         }
         guard let clickedNode = outlineView.item(atRow: outlineView.clickedRow) as? NSTreeNode else {
@@ -86,7 +84,8 @@ class ViewController: NSViewController {
     private func togglePreviewPanel() {
         if QLPreviewPanel.sharedPreviewPanelExists() && QLPreviewPanel.shared().isVisible {
             QLPreviewPanel.shared().orderOut(nil)
-        } else if !treeController.selectionIndexPaths.isEmpty {
+        } else {
+            guard !treeController.selectionIndexPaths.isEmpty else { return }
             QLPreviewPanel.shared().makeKeyAndOrderFront(nil)
         }
     }
@@ -134,7 +133,7 @@ extension ViewController: QLPreviewPanelDataSource {
 
 extension ViewController: QLPreviewPanelDelegate {
     func previewPanel(_: QLPreviewPanel!, handle event: NSEvent!) -> Bool {
-        if event.type != .keyDown { return false }
+        guard event.type == .keyDown else { return false }
         keyDown(with: event)
         return true
     }
@@ -145,7 +144,7 @@ extension ViewController: QLPreviewPanelDelegate {
                                           makeIfNecessary: false) as? NSTableCellView
         else { return .zero }
         let cellRectOnWindow = cell.convert(cell.imageView?.frame ?? .zero, to: nil)
-        if !view.frame.contains(cellRectOnWindow) { return .zero }
+        guard view.frame.contains(cellRectOnWindow) else { return .zero }
         return cell.window!.convertToScreen(cellRectOnWindow)
     }
 
