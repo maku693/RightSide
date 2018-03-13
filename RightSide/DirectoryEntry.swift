@@ -41,6 +41,10 @@ class DirectoryEntry: NSObject {
 
         fileSystemMonitor.delegate = self
         fileSystemMonitor.startMonitoring()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(refresh),
+                                               name: UserDefaults.didChangeNotification,
+                                               object: nil)
     }
 
     override func isEqual(_ object: Any?) -> Bool {
@@ -56,14 +60,50 @@ class DirectoryEntry: NSObject {
 
     private func loadChildren() -> Set<DirectoryEntry> {
         guard !isFile else { return [] }
+
+        let contentsOptions: FileManager.DirectoryEnumerationOptions =
+            UserDefaults.standard.showHiddenItems ? [] : [.skipsHiddenFiles]
         guard let URLs = try? FileManager.default.contentsOfDirectory(at: URL,
                                                                       includingPropertiesForKeys: [
-                                                                          .isDirectoryKey, .isPackageKey,
+                                                                          .isDirectoryKey, .isPackageKey, .isHiddenKey
                                                                       ],
-                                                                      options: [.skipsHiddenFiles])
+                                                                      options: contentsOptions)
         else { return [] }
-        let entries = URLs.map { DirectoryEntry(URL: $0) }
+
+        let entries = URLs
+            .filter { URL in
+                guard UserDefaults.standard.showHiddenItems else { return true }
+                guard let resourceValues = try? URL.resourceValues(forKeys: [.isHiddenKey]),
+                    resourceValues.isHidden ?? false
+                else { return true }
+                return !UserDefaults.standard.ignoredNames.contains(URL.lastPathComponent)
+            }
+            .map { DirectoryEntry(URL: $0) }
         return Set(entries)
+    }
+
+    @objc private func refresh(_ sender: Any?) {
+        DispatchQueue.global().async { [weak self] in
+            guard let strongSelf = self else { return }
+
+            guard !strongSelf.isFile else { return }
+
+            let newChildren = strongSelf.loadChildren()
+            guard strongSelf.children != newChildren else { return }
+
+            let removed = strongSelf.children.subtracting(newChildren)
+            let added = newChildren.subtracting(strongSelf.children)
+
+            DispatchQueue.main.sync { [weak self] in
+                guard let strongSelf = self else { return }
+                if !removed.isEmpty {
+                    strongSelf.children.subtract(removed)
+                }
+                if !added.isEmpty {
+                    strongSelf.children.formUnion(added)
+                }
+            }
+        }
     }
 }
 
@@ -74,19 +114,7 @@ extension DirectoryEntry: QLPreviewItem {
 
 extension DirectoryEntry: FileSystemMonitorDelegate {
     func fileSystemMonitorDidObserveChange(_: FileSystemMonitor) {
-        guard !isFile else { return }
-        let newChildren = loadChildren()
-        guard children != newChildren else { return }
-        let removed = children.subtracting(newChildren)
-        let added = newChildren.subtracting(children)
-        DispatchQueue.main.sync {
-            if !removed.isEmpty {
-                children.subtract(removed)
-            }
-            if !added.isEmpty {
-                children.formUnion(added)
-            }
-        }
+        refresh(self)
     }
 
     func fileSystemMonitorDidObserveDelete(_: FileSystemMonitor) {

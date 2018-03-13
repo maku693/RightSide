@@ -10,4 +10,9 @@ import Cocoa
 import Quartz
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {}
+class AppDelegate: NSObject, NSApplicationDelegate {
+    override init() {
+        super.init()
+        UserDefaults.standard.registerDefaults()
+    }
+}

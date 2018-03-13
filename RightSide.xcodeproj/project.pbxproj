@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		433D26BC20308CC200C870FB /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433D26BB20308CC200C870FB /* DocumentController.swift */; };
+		434465E42058295D005C5194 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434465E32058295D005C5194 /* UserDefaults.swift */; };
 		4381FB14202DE6A000C8703A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4381FB13202DE6A000C8703A /* AppDelegate.swift */; };
 		4381FB16202DE6A000C8703A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4381FB15202DE6A000C8703A /* ViewController.swift */; };
 		4381FB18202DE6A000C8703A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4381FB17202DE6A000C8703A /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		433D26BB20308CC200C870FB /* DocumentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
+		434465E32058295D005C5194 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		4381FB10202DE6A000C8703A /* RightSide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RightSide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4381FB13202DE6A000C8703A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4381FB15202DE6A000C8703A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				43D09FA1203C709F00082CDE /* Document.swift */,
 				43D09FA3203C76B500082CDE /* DirectoryEntry.swift */,
 				43D09FA5203DD24800082CDE /* FileSystemMonitor.swift */,
+				434465E32058295D005C5194 /* UserDefaults.swift */,
 				4381FB17202DE6A000C8703A /* Assets.xcassets */,
 				4381FB19202DE6A000C8703A /* Main.storyboard */,
 				4381FB1C202DE6A000C8703A /* Info.plist */,
@@ -153,6 +156,7 @@
 				43D09FA2203C709F00082CDE /* Document.swift in Sources */,
 				433D26BC20308CC200C870FB /* DocumentController.swift in Sources */,
 				43D09FA8203EF68C00082CDE /* WindowController.swift in Sources */,
+				434465E42058295D005C5194 /* UserDefaults.swift in Sources */,
 				4381FB16202DE6A000C8703A /* ViewController.swift in Sources */,
 				4381FB14202DE6A000C8703A /* AppDelegate.swift in Sources */,
 				43D09FA4203C76B500082CDE /* DirectoryEntry.swift in Sources */,

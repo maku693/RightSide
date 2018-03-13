@@ -21,6 +21,12 @@
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="9Qx-Ek-aLv"/>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="hS9-K7-xWP">
+                                            <connections>
+                                                <segue destination="eRv-zz-MNy" kind="show" id="CPW-gX-YeC"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -209,6 +215,109 @@
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="300"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="9Mp-El-8ki">
+            <objects>
+                <windowController showSeguePresentationStyle="single" id="eRv-zz-MNy" sceneMemberID="viewController">
+                    <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" tabbingMode="disallowed" id="ExQ-aY-Swz">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+                        <windowCollectionBehavior key="collectionBehavior" ignoresCycle="YES" fullScreenAuxiliary="YES"/>
+                        <rect key="contentRect" x="0.0" y="240" width="480" height="79"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
+                        <connections>
+                            <outlet property="delegate" destination="eRv-zz-MNy" id="JIf-2e-J43"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="6Rm-K8-XJw" kind="relationship" relationship="window.shadowedContentViewController" id="Y3J-7O-SKB"/>
+                    </connections>
+                </windowController>
+                <customObject id="v1h-if-u14" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="617" y="205"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="NG4-GX-SVx">
+            <objects>
+                <viewController id="6Rm-K8-XJw" sceneMemberID="viewController">
+                    <customView key="view" id="BuM-wh-IBe">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="84"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <subviews>
+                            <view translatesAutoresizingMaskIntoConstraints="NO" id="rEU-MU-st8">
+                                <rect key="frame" x="51" y="20" width="348" height="44"/>
+                                <subviews>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vae-xY-KjD">
+                                        <rect key="frame" x="44" y="26" width="306" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Show hidden items" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="E5U-kF-UiG">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="uEQ-4W-1Yu" name="value" keyPath="values.ShowHiddenItems" id="shq-TH-1M6"/>
+                                        </connections>
+                                    </button>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="A57-BD-JRo">
+                                        <rect key="frame" x="44" y="3" width="98" height="17"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Ignored names:" id="1KU-CK-6AG">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="St0-vN-tYx">
+                                        <rect key="frame" x="-2" y="27" width="42" height="17"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Items:" id="mcH-zd-d4y">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <tokenField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QsH-k5-P8c">
+                                        <rect key="frame" x="148" y="0.0" width="200" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="OGT-wg-fxK"/>
+                                        </constraints>
+                                        <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" drawsBackground="YES" allowsEditingTextAttributes="YES" id="sGf-aH-dLT">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </tokenFieldCell>
+                                        <connections>
+                                            <binding destination="uEQ-4W-1Yu" name="value" keyPath="values.IgnoredNames" id="U2w-Tf-K4M"/>
+                                            <binding destination="uEQ-4W-1Yu" name="enabled" keyPath="values.ShowHiddenItems" id="aTw-Uq-wzh"/>
+                                        </connections>
+                                    </tokenField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Vae-xY-KjD" firstAttribute="leading" secondItem="St0-vN-tYx" secondAttribute="trailing" constant="8" id="02B-ad-eXg"/>
+                                    <constraint firstAttribute="bottom" secondItem="QsH-k5-P8c" secondAttribute="bottom" id="6gF-Lu-IBD"/>
+                                    <constraint firstItem="A57-BD-JRo" firstAttribute="top" secondItem="Vae-xY-KjD" secondAttribute="bottom" constant="8" id="ALc-9N-aU9"/>
+                                    <constraint firstItem="A57-BD-JRo" firstAttribute="leading" secondItem="Vae-xY-KjD" secondAttribute="leading" id="KB3-fH-66e"/>
+                                    <constraint firstAttribute="trailing" secondItem="Vae-xY-KjD" secondAttribute="trailing" id="Qc6-N4-JsT"/>
+                                    <constraint firstItem="QsH-k5-P8c" firstAttribute="leading" secondItem="A57-BD-JRo" secondAttribute="trailing" constant="8" id="cJX-q3-1RY"/>
+                                    <constraint firstItem="Vae-xY-KjD" firstAttribute="baseline" secondItem="St0-vN-tYx" secondAttribute="baseline" id="f6E-LP-mFV"/>
+                                    <constraint firstItem="St0-vN-tYx" firstAttribute="leading" secondItem="rEU-MU-st8" secondAttribute="leading" id="jYV-hH-MzQ"/>
+                                    <constraint firstItem="QsH-k5-P8c" firstAttribute="baseline" secondItem="A57-BD-JRo" secondAttribute="baseline" id="oMN-bg-OFG"/>
+                                    <constraint firstAttribute="trailing" secondItem="QsH-k5-P8c" secondAttribute="trailing" id="vu1-rL-glf"/>
+                                    <constraint firstItem="St0-vN-tYx" firstAttribute="top" secondItem="rEU-MU-st8" secondAttribute="top" id="zHv-yy-hhD"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="rEU-MU-st8" secondAttribute="bottom" constant="20" id="3dh-zl-g2H"/>
+                            <constraint firstItem="rEU-MU-st8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="BuM-wh-IBe" secondAttribute="leading" constant="20" id="Kb7-5V-oYf"/>
+                            <constraint firstItem="rEU-MU-st8" firstAttribute="centerX" secondItem="BuM-wh-IBe" secondAttribute="centerX" id="Lh1-pa-bJa"/>
+                            <constraint firstItem="rEU-MU-st8" firstAttribute="top" secondItem="BuM-wh-IBe" secondAttribute="top" constant="20" id="dqQ-Vo-AC8"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rEU-MU-st8" secondAttribute="trailing" constant="20" id="v05-xu-6uy"/>
+                        </constraints>
+                    </customView>
+                </viewController>
+                <customObject id="wFf-yQ-cG7" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController representsSharedInstance="YES" id="uEQ-4W-1Yu"/>
+            </objects>
+            <point key="canvasLocation" x="617" y="598"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
