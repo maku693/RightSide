@@ -415,12 +415,14 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="showActiveEntriesInFinder:" target="XfG-lQ-9wD" id="aS1-RZ-iz7"/>
+                                <binding destination="XfG-lQ-9wD" name="enabled" keyPath="self.isItemSelected" id="Z40-tD-SJq"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Open with External Editor" id="A4F-yO-dlJ">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="openActiveEntriesWithExternalEditor:" target="XfG-lQ-9wD" id="sNr-0c-VLM"/>
+                                <binding destination="XfG-lQ-9wD" name="enabled" keyPath="self.isItemSelected" id="U9c-Bt-qWc"/>
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="Dbj-nD-SEf"/>

@@ -35,8 +35,12 @@ class ViewController: NSViewController {
         return activeNodes.map { $0.representedObject }.flatMap { $0 }
     }
 
+    @objc dynamic var isItemSelected: Bool {
+        return !activeObjects.isEmpty
+    }
+
     @objc dynamic var isSelectingRootNodesOnly: Bool {
-        return activeNodes.reduce(true) { $0 && $1.parent?.parent == nil }
+        return activeNodes.reduce(isItemSelected) { $0 && $1.parent?.parent == nil }
     }
 
     // MARK: Lifecycle
