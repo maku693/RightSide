@@ -10,16 +10,16 @@ import Cocoa
 
 class DocumentController: NSDocumentController {
     override func openDocument(_: Any?) {
-        beginOpenPanel { [unowned self] urls in
-            guard let urls = urls else { return }
+        beginOpenPanel { [unowned self] URLs in
+            guard let URLs = URLs else { return }
 
             if let document = self.currentDocument as? Document {
-                self.readURLs(urls, into: document)
+                self.read(URLs, into: document)
                 return
             }
 
             let document = Document()
-            self.readURLs(urls, into: document)
+            self.read(URLs, into: document)
             self.addDocument(document)
             document.makeWindowControllers()
             document.showWindows()
@@ -34,12 +34,12 @@ class DocumentController: NSDocumentController {
         super.beginOpenPanel(openPanel, forTypes: inTypes, completionHandler: completionHandler)
     }
 
-    func readURLs(_ urls: [URL], into document: Document) {
-        for url in urls {
+    func read(_ URLs: [URL], into document: Document) {
+        for URL in URLs {
             do {
-                let type = try typeForContents(of: url)
-                try document.read(from: url, ofType: type)
-                noteNewRecentDocumentURL(url)
+                let type = try typeForContents(of: URL)
+                try document.read(from: URL, ofType: type)
+                noteNewRecentDocumentURL(URL)
             } catch {
                 presentError(error)
             }
