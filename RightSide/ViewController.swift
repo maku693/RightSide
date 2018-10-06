@@ -32,7 +32,7 @@ class ViewController: NSViewController {
     }
 
     var activeObjects: [Any] {
-        return activeNodes.map { $0.representedObject }.flatMap { $0 }
+        return activeNodes.map { $0.representedObject }.compactMap { $0 }
     }
 
     @objc dynamic var isItemSelected: Bool {
@@ -119,7 +119,7 @@ extension ViewController: NSOutlineViewDataSource {
                 let url = entry?.URL as NSURL?
                 return url
             }
-            .flatMap { $0 }
+            .compactMap { $0 }
         pasteboard.writeObjects(urls)
         return true
     }
