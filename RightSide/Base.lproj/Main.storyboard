@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -174,7 +175,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController storyboardIdentifier="Window Controller" id="B8D-0N-5wS" customClass="WindowController" customModule="RightSide" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -220,7 +221,7 @@
         <scene sceneID="9Mp-El-8ki">
             <objects>
                 <windowController showSeguePresentationStyle="single" id="eRv-zz-MNy" sceneMemberID="viewController">
-                    <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" tabbingMode="disallowed" id="ExQ-aY-Swz">
+                    <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" tabbingMode="disallowed" id="ExQ-aY-Swz">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <windowCollectionBehavior key="collectionBehavior" ignoresCycle="YES" fullScreenAuxiliary="YES"/>
                         <rect key="contentRect" x="0.0" y="240" width="480" height="79"/>
@@ -337,7 +338,7 @@
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn identifier="" width="447" minWidth="40" maxWidth="1000" id="TG1-BK-zLP">
+                                        <tableColumn width="447" minWidth="40" maxWidth="1000" id="TG1-BK-zLP">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -354,17 +355,15 @@
                                                     <rect key="frame" x="1" y="1" width="447" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VmP-BX-zty">
-                                                            <rect key="frame" x="3" y="0.0" width="17" height="17"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VmP-BX-zty">
+                                                            <rect key="frame" x="3" y="0.0" width="14" height="17"/>
                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="mEu-tO-6k5"/>
                                                             <connections>
                                                                 <binding destination="73Q-N0-DE7" name="value" keyPath="objectValue.image" id="104-BH-o60"/>
                                                             </connections>
                                                         </imageView>
-                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yHA-ab-z2T">
-                                                            <rect key="frame" x="25" y="0.0" width="422" height="17"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yHA-ab-z2T">
+                                                            <rect key="frame" x="22" y="0.0" width="425" height="17"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" title="Table View Cell" id="vEx-9v-N7p">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -375,6 +374,14 @@
                                                             </connections>
                                                         </textField>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="yHA-ab-z2T" firstAttribute="leading" secondItem="VmP-BX-zty" secondAttribute="trailing" constant="7" id="5u4-YR-phv"/>
+                                                        <constraint firstAttribute="trailing" secondItem="yHA-ab-z2T" secondAttribute="trailing" constant="2" id="Id1-rh-ro6"/>
+                                                        <constraint firstItem="yHA-ab-z2T" firstAttribute="centerY" secondItem="73Q-N0-DE7" secondAttribute="centerY" id="TcI-5f-teB"/>
+                                                        <constraint firstItem="VmP-BX-zty" firstAttribute="bottom" secondItem="yHA-ab-z2T" secondAttribute="bottom" id="ZVK-c7-Cki"/>
+                                                        <constraint firstItem="VmP-BX-zty" firstAttribute="top" secondItem="yHA-ab-z2T" secondAttribute="top" id="aXk-N8-iMX"/>
+                                                        <constraint firstItem="VmP-BX-zty" firstAttribute="leading" secondItem="73Q-N0-DE7" secondAttribute="leading" constant="3" id="v73-TY-RhR"/>
+                                                    </constraints>
                                                     <connections>
                                                         <outlet property="imageView" destination="VmP-BX-zty" id="8eu-5b-cLm"/>
                                                         <outlet property="textField" destination="yHA-ab-z2T" id="axf-aL-U8F"/>
@@ -394,11 +401,11 @@
                             </subviews>
                             <nil key="backgroundColor"/>
                         </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="yru-WW-kz1">
+                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="yru-WW-kz1">
                             <rect key="frame" x="0.0" y="284" width="450" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="pOY-Ja-cJL">
+                        <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="pOY-Ja-cJL">
                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
